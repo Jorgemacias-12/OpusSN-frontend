@@ -1,8 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer';
 ---
 
-<Layout title="">
+<Layout title="Opus - Inicio">
+	<Header client:load />
+	<main class="p-2">
+		Index page content goes here
+	</main>
+	<Footer />
 </Layout>
 
 <style>
