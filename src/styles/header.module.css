@@ -1,0 +1,3 @@
+.button {
+  @apply bg-indigo-500 text-white p-1 rounded-md text-center;
+}
