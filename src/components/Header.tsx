@@ -45,7 +45,7 @@ export const Header = () => {
             </section>
           </section>
 
-          <span onClick={onMenuToggle} className="inline-flex fa-xl lg:hidden transition-all duration-300 ease-in-out">
+          <span onClick={onMenuToggle} className="inline-flex fa-xl lg:hidden transition-all duration-300 ease-in-out mr-4">
             {iconStateEl}
           </span>
         </section>
