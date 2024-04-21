@@ -10,11 +10,11 @@ export const Header = () => {
     setMenuToggle(!menuToggle);
   }
 
-  const dropdownClassNameState = menuToggle ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[-10px]";
+  const dropdownClassNameState = menuToggle ? "opacity-100 translate-y-0 pointer-events-auto z-10" : "opacity-0 translate-y-[-10px] z-[-1]  pointer-events-none";
   const iconStateEl = menuToggle ? <i className="fas fa-times"/> : <i className="fas fa-bars" />
 
   return (
-    <header className="bg-brand-blue-900 h-20 text-white flex flex-col justify-center items-center">
+    <header className="bg-brand-blue-900 h-20 text-white flex flex-col justify-center items-center poiner">
       <section className="w-full max-w-screen-xl flex justify-between">
         <section className="flex gap-2 items-center p-2">
           <img width={64} className='aspect-square' src={"/brand-logo-shape.svg"} alt="Opus brand logo" />
