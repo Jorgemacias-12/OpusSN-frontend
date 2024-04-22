@@ -1,4 +1,13 @@
 ---
+import "@fontsource/ubuntu/300-italic.css";
+import "@fontsource/ubuntu/400-italic.css";
+import "@fontsource/ubuntu/500-italic.css";
+import "@fontsource/ubuntu/700-italic.css";
+import "@fontsource/ubuntu/300.css";
+import "@fontsource/ubuntu/400.css";
+import "@fontsource/ubuntu/500.css";
+import "@fontsource/ubuntu/700.css";
+
 interface Props {
 	title: string;
 }
@@ -28,10 +37,18 @@ const { title } = Astro.props;
 	</body>
 </html>
 <style is:global>
+	body {
+		font-family: "Ubuntu", sans-serif;
+	}
+
 	.app {
 		min-height: 100vh;
 		min-height: 100dvh;
 		display: grid;
 		grid-template-rows: auto 1fr auto;
+	}
+
+	*:focus {
+		outline: none;
 	}
 </style>
