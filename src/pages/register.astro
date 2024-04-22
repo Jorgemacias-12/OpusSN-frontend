@@ -1,7 +1,181 @@
 ---
-import Layout from "../layouts/Layout.astro"
+// import { Button } from "@/components/Button";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Opus - Registro">
-  
+  <main
+    class="bg min-h-screen reltive flex flex-col justify-start lg:justify-center pt-20 lg:pt-0 items-center"
+  >
+    <a
+      href="/"
+      class="absolute top-0 left-0 text-white w-10 h-10 inline-flex justify-center items-center bg-brand-blue hover:bg-brand-red transition-all rounded-full m-5"
+    >
+      <span class="fas fa-arrow-left fa-xl"></span>
+    </a>
+
+    <form
+      id="user-form"
+      method="POST"
+      class="flex flex-col bg-brand-black-900 p-4 gap-4 max-w-screen-xs text-white rounded-md m-5 md:m-0"
+    >
+      <section class="flex flex-col gap-4">
+        <img src="/brand-logo-full.svg" alt="Opus full brand logo" />
+        <h1 class="text-2xl font-bold text-center">Registrarse en Opus</h1>
+      </section>
+
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+        <section class="flex flex-col gap-2">
+          <label for="Name">Nombre</label>
+          <input
+            class="input"
+            type="text"
+            placeholder="Nombre(s)"
+            name="Name"
+            id="Name"
+          />
+          <section>
+            <p class="hidden">Error message goes here</p>
+          </section>
+        </section>
+
+        <section class="flex flex-col gap-2">
+          <label for="LastName">Apellido</label>
+          <input
+            class="input"
+            type="text"
+            placeholder="Apellido(s)"
+            name="LastName"
+            id="LastName"
+          />
+          <section>
+            <p class="hidden">Error message goes here</p>
+          </section>
+        </section>
+      </section>
+
+      <section class="flex flex-col gap-2">
+        <label for="UserName">Nombre de usuario</label>
+        <section
+          class="flex items-center border h-8 focus-within:bg-brand-black focus-within:border-blue-500 pr-2 rounded-md justify-between"
+        >
+          <input
+            class="bg-transparent px-2 flex-1 border-0"
+            id="UserName"
+            name="UserName"
+            type="text"
+          />
+          <!-- {icon change} -->
+          <span class="fastext-green-500"></span>
+        </section>
+        <section class="">
+          <p class="hidden">Error message goes here</p>
+        </section>
+      </section>
+
+      <section class="flex flex-col gap-2">
+        <label for="Email">Correo electronico</label>
+        <input class="input" id="Email" name="Email" type="text" />
+        <section class="">
+          <p class="hidden">Error message goes here</p>
+        </section>
+      </section>
+
+      <section class="flex flex-col gap-2">
+        <label for="Password">Contraseña</label>
+        <input class="input" id="Password" name="Password" type="password" />
+        <section class="">
+          <p class="hidden">Error message goes here</p>
+        </section>
+      </section>
+
+      <section class="flex flex-col">
+        <button type="submit" class="bg-teal-700 py-2 rounded-md text-white"
+          >Registrarme</button
+        >
+      </section>
+    </form>
+  </main>
 </Layout>
+
+<style>
+  .bg {
+    background-image: url("/dots-pattern.svg");
+  }
+
+  .input {
+    @apply bg-transparent w-full focus:bg-brand-black border focus:border-blue-500 rounded-md pl-2 h-8 text-xs md:text-sm lg:text-base;
+  }
+
+  .error {
+    @apply text-red-500;
+  }
+</style>
+
+<script>
+  const $ = (id: string) => {
+    return document.getElementById(id);
+  };
+
+  const formEl = $("user-form") as HTMLFormElement;
+
+  formEl!.addEventListener("submit", (e) => {
+    if (event === null) return;
+
+    e.preventDefault();
+
+    const formData = new FormData(formEl);
+
+    const data = Object.fromEntries(formData);
+
+    console.table(data);
+  });
+
+  const checkInputCriteria = (inputID: string) => {
+    console.log(inputID);
+  };
+
+  const validateField = (input: HTMLInputElement) => {
+    if (input === null) return;
+
+    const errorContainer = input.nextElementSibling;
+    const errorParagraph = errorContainer!.firstElementChild as HTMLElement;
+    const labelEl = input.previousElementSibling as HTMLLabelElement;
+
+    if (errorParagraph === null) return;
+
+    if (input.value === "") {
+      input.classList.add("border-red-500");
+
+      errorParagraph!.classList.remove("hidden");
+      errorParagraph!.classList.add("text-red-500");
+
+      errorParagraph.innerText = `${labelEl.innerText} esta vació.`;
+
+      labelEl.classList.add("text-red-500");
+    }
+
+    if (input.value !== "") {
+      input.classList.remove("border-red-500");
+
+      errorParagraph!.classList.add("hidden");
+      errorParagraph!.classList.remove("text-red-500");
+
+      errorParagraph.innerText = `${labelEl.innerText} esta vació.`;
+
+      labelEl.classList.remove("text-red-500");
+    }
+
+    checkInputCriteria(input.id);
+  };
+
+  const inputs = document.querySelectorAll("input");
+
+  inputs.forEach((input) => {
+    const inputEl = input as HTMLInputElement;
+
+    inputEl.addEventListener("input", () => {
+      validateField(inputEl);
+    });
+  });
+</script>
