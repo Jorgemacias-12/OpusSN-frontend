@@ -6,3 +6,13 @@ export interface User {
   Email: string;
   Role: number;
 }
+
+export interface Category {
+  id: number;
+  Name: string;
+}
+
+export interface CategoryAPIResponse {
+  categories: Category[];
+  categoryCount: number;
+}
