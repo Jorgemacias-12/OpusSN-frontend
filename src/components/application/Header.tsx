@@ -20,7 +20,7 @@ export const Header = () => {
   const userFeedInfo = user ? (<>
     <p className="text-white text-xl">{user.UserName}</p>
     <img className="rounded-full" src={avatarURL} alt="" />
-  </>) : userInfoSection;
+  </>) : "";
 
   const dropdownOptionsAuthenticated = (<>
 
