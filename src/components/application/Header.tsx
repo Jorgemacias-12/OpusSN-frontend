@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 export const Header = () => {
 
-  const [menuToggle, setMenuToggle] = useState(true);
+  const [menuToggle, setMenuToggle] = useState(false);
 
   const toggleMenu = () => {
     setMenuToggle(!menuToggle);
