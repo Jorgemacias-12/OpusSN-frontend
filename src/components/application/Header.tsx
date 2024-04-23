@@ -1,4 +1,5 @@
 import { loggedUser } from '@/stores/UserStore';
+import { getUserAvatarURL } from '@/utils';
 import { useState } from 'react'
 
 export const Header = () => {
@@ -11,7 +12,7 @@ export const Header = () => {
 
   const user = loggedUser.get();
 
-  const avatarURL = user ? `https://ui-avatars.com/api/?name=${user.Name}+${user.LastName}&background=random` : '';
+  const avatarURL = user ? getUserAvatarURL(user.Name, user.LastName) : '';
 
   const userInfoSection = <>
     <a className="text-black text-center bg-brand-yellow p-2 rounded-md shadow-lg hover:shadow-yellow-500/50" href="/login">Inicie sesión</a>
