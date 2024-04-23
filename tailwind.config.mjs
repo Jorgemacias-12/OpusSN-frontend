@@ -4,6 +4,11 @@ export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
+      gridTemplateRows: {
+        'auto-fill-100': 'repeat(auto-fill, minmax(100px, 1fr))',
+        'auto-fit-100': 'repeat(auto-fit, minmax(100px, 1fr))',
+        'auto': 'auto'
+      },
       maxWidth: {
         'screen-xs': '400px',
       },
@@ -30,9 +35,10 @@ export default {
         'brand-black-700': '#131519',
         'brand-black-800': '#0D0E11',
         'brand-black-900': '#070708',
-        'brand-slate': "#1a1e23",
-        'brand-slate-800': '#363e49',
-        'brand-state-700': "#525e6f"
+        'brand-slate': "#343a40",
+        'brand-slate-800': '#212529',
+        'brand-slate-700': "#525e6f",
+        'brand-slate-500': '#3f474f'
       },
     },
   },
