@@ -17,6 +17,9 @@ jobs:
       - name: Install bun
         uses: oven-sh/setup-bun@v1
 
+      - name: Install depedencies
+        run: bun install
+        
       - name: Compile frontend
         run: bun run build
 
