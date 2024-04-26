@@ -21,7 +21,7 @@ jobs:
         run: bun run build
 
       - name: Upload production build to the server
-        uses: genietim/ftp-action@releases/v4
+        uses: GenieTim/ftp-action@v4.0.1
         with:
           host: ${{ secrets.FTP_SERVER }}
           user: ${{ secrets.FTP_USERNAME }}
