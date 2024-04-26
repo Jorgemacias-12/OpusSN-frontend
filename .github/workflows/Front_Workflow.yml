@@ -1,0 +1,31 @@
+name: Deploy frontend
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+
+      - name: Install bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Compile frontend
+        run: bun run build
+
+      - name: Upload production build to the server
+        uses: genietim/ftp-action@releases/v4
+        with:
+          host: ${{ secrets.FTP_SERVER }}
+          user: ${{ secrets.FTP_USERNAME }}
+          password: ""
+          ssh_key: ${{ secrets.SSH_KEY }}
+          localDir: "build"
+          remoteDir: "www/html/"
