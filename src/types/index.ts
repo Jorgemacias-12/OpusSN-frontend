@@ -1,9 +1,9 @@
-export interface User {
-  id: number;
+export interface NewUser {
   Name: string;
   LastName: string;
   UserName: string;
   Email: string;
+  Password: string;
   Role: number;
 }
 
