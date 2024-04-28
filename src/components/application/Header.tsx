@@ -20,11 +20,11 @@ export const Header = () => {
 
   const userFeedInfo = user ? (<>
     <p className="text-white text-xl">{user.UserName}</p>
-    <img className="rounded-full" src={avatarURL} alt="" />
+    <img className="rounded-full" width={48} height={48} src={avatarURL} alt="" />
   </>) : "";
 
   const dropdownOptionsAuthenticated = (<>
-
+    
   </>);
 
   const dropdownOptions = (<section className="flex flex-col gap-2">
