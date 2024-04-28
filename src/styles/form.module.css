@@ -1,0 +1,44 @@
+.formBackground {
+  @apply min-h-screen relative flex flex-col justify-start lg:justify-center pt-20 lg:pt-0 items-center;
+  background-image: url('dots-pattern.svg');
+}
+
+.exitLink {
+  @apply absolute top-0 left-0 text-white w-10 h-10 inline-flex justify-center items-center bg-brand-blue hover:bg-brand-red transition-all rounded-full m-5;
+}
+
+.form {
+  @apply flex flex-col bg-brand-blue-900 p-4 gap-4 max-w-screen-xs text-white rounded-md m-5 md:m-0 md:max-w-screen-md lg:max-w-screen-lg w-96;
+}
+
+.brandContainer {
+  @apply flex flex-col gap-4
+}
+
+.formTitle {
+  @apply text-2xl font-bold text-center;
+}
+
+.formWrapperGrid {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-2;
+}
+
+.formFieldContainer {
+  @apply flex flex-col gap-2;
+}
+
+.formInput {
+  @apply bg-transparent w-full focus:bg-brand-blue-800 border focus:border-blue-500 rounded-md px-2 md:text-sm lg:text-base h-10 text-xs;
+}
+
+.formFieldInputError {
+  @apply text-red-500;
+}
+
+.submitButton {
+  @apply flex items-center justify-center gap-2 bg-indigo-600 px-2 h-10 rounded-md w-full disabled:bg-indigo-400;
+}
+
+/* .submitButton {
+  @apply flex flex-col bg-blue-600 px-2 h-10 rounded-md w-full items-center justify-center;
+} */
