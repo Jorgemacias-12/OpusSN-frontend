@@ -1,18 +1,10 @@
-import type { User } from "@/types";
+import type { SafeUser } from "@/types";
 import { atom } from "nanostores";
 
-const testUser: User = {
-  id: 1,
-  Name: "Juan",
-  LastName: "Pérez",
-  UserName: "ElChaPo",
-  Email: "juanito123@example.com",
-  Role: 1
-}
 
-export const loggedUser = atom<User | null>(testUser);
+export const loggedUser = atom<SafeUser | null>(null);
 
-export const setLoggedUser = (user: User) => {
+export const setLoggedUser = (user: SafeUser) => {
   loggedUser.set(user);
 }
 
