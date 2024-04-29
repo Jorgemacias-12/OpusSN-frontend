@@ -1,6 +1,6 @@
 .formBackground {
   @apply min-h-screen relative flex flex-col justify-start lg:justify-center pt-20 lg:pt-0 items-center;
-  background-image: url('dots-pattern.svg');
+  background-image: url('dots-pattern.png');
 }
 
 .exitLink {
