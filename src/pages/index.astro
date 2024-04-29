@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import FormLayout from "@/layouts/FormLayout.astro";
 ---
 
 <Layout title="Opus - Inicio">
@@ -25,19 +26,24 @@ import { Footer } from "@/components/Footer";
 				</p>
 			</section>
 			<img
-				class="aspect-video w-full"
-				src="https://via.placeholder.com/250x150"
+				class=""
+				src="/welcome.png"
 				alt=""
+				width="480"
+				height="270"
+				loading="lazy"
 			/>
 		</section>
 
 		<section class="flex flex-col gap-4 md:flex-row justify-start content">
 			<img
-				class="aspect-video w-full order-2 md:order-1"
-				src="https://via.placeholder.com/250x150"
+				class="order-2 md:order-1"
+				src="/Reopus.png"
 				alt=""
+				width="480"
+				loading="lazy"
 			/>
-			<section class="flex flex-col gap-4 order-1">
+			<section class="flex flex-col gap-4 order-1 flex-1">
 				<h2 class="text-3xl text-center font-bold lg:text-5xl lg:p-5">
 					¿Qué es OPUS?
 				</h2>
@@ -77,17 +83,21 @@ import { Footer } from "@/components/Footer";
 				¿Necesitas ayuda o tienes alguna pregunta? Nuestro equipo de soporte
 				está aquí para ayudarte.
 			</p>
-			
+
 			<p class="">
-				Correo electrónico: <a class="text-blue-500 hover:underline" href="">soporte@partumunitstudio.com</a>
+				Correo electrónico: <a class="text-blue-500 hover:underline" href=""
+					>soporte@partumunitstudio.com</a
+				>
 			</p>
 			<p class="">
-				Teléfono: <a class="text-blue-500 hover:underline" href="tel:+523221234512">+1 (322) 123-4512</a>
+				Teléfono: <a
+					class="text-blue-500 hover:underline"
+					href="tel:+523221234512">+1 (322) 123-4512</a
+				>
 			</p>
 		</section>
 
 		<div class="ad" id="ad"></div>
-
 	</main>
 	<Footer />
 </Layout>
