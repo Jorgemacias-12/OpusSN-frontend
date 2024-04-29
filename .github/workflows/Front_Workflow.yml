@@ -40,9 +40,8 @@ jobs:
             package.json
             README.md
             tsconfig.json
-            .gitignore
-            public/
-            .vscode/
-            .github/
+            public/**
+            .vscode/**
+            .github/**
             astro.config.mjs
             tailwind.config.mjs
