@@ -1,0 +1,150 @@
+---
+import { Header } from "@/components/Header";
+import Layout from "../layouts/Layout.astro";
+import { Footer } from "@/components/Footer";
+---
+
+<Layout title="Opus - Aviso legal">
+  <Header client:load />
+  <main class="wrapper">
+    <h2 class="title">Aviso legal</h2>
+
+    <p class="subtitle">Titular el sitio web</p>
+
+    <p class="text-justify">
+      Los datos identificativos del responsable del presente sitio web son: Sex
+      Lovers Studio.
+    </p>
+
+    <p class="subtitle">Condiciones de uso</p>
+
+    <section class="paragraph-container">
+      <p>
+        Las siguientes disposiciones regulan el acceso y uso de este sitio web.
+        La navegación por este sitio web atribuye la condición de usuario a toda
+        persona física interesada en los productos y servicios de esta página e
+        implica la aceptación plena y sin reservas del presente aviso legal.
+      </p>
+      <p>
+        El usuario acepta de forma expresa y sin excepciones que el acceso y la
+        utilización del presente sitio web, de sus servicios y sus contenidos
+        tiene lugar bajo su única y exclusiva responsabilidad. En el caso de que
+        el usuario no estuviera de acuerdo con el contenido de las presentes
+        condiciones, deberá abandonar este sitio web, no pudiendo disponer de
+        los servicios que se ofrecen.
+      </p>
+      <p>
+        El acceso a esta web tiene carácter libre y gratuito. El presente aviso
+        legal podrá modificarse en cualquier momento, para adecuarlo a cambios
+        legislativos, jurisprudenciales o tecnológicos. Estas modificaciones se
+        considerarán notificadas desde su publicación en esta página.
+      </p>
+    </section>
+
+    <p class="subtitle">Propiedad intelectual</p>
+
+    <section class="paragraph-container">
+      <p>
+        Todos los derechos sobre el contenido del presente sitio web pertenecen
+        a Sex Lovers Studio. El diseño, contenidos, textos, fotografías,
+        imágenes, mapas, gráficos, marcas, nombres comerciales, ilustraciones,
+        banners, estructura de página y de navegación, o código fuente de este
+        sitio son titularidad de Sex Lovers Studio, que posee legítimamente los
+        derechos de explotación pertinentes.
+      </p>
+      <p>
+        Los logotipos de otras sociedades que pudieran aparecer son titularidad
+        de cada una de ellas, disponiendo legítimamente los derechos de
+        explotación sobre los mismos.
+      </p>
+      <p>
+        En ningún caso, el usuario que acceda a este sitio web puede copiar,
+        modificar, distribuir, transmitir, reproducir, publicar, ceder, vender
+        los elementos anteriormente mencionados o crear nuevos productos o
+        servicios a partir de la información obtenida, a excepción de que cuente
+        con autorización expresa y por escrito de Sex Lovers Studio.
+      </p>
+      <p>
+        Este material está protegido por la legislación de la propiedad
+        intelectual y su uso indebido puede ser objeto incluso de sanciones
+        penales.
+      </p>
+      <p>
+        La consulta o descarga de contenidos del sitio no implican la cesión de
+        ningún derecho de propiedad intelectual sobre los mismos. Los usuarios
+        responderán de los daños y perjuicios de cualquier clase que Sex Lovers
+        Studio pueda sufrir, directa o indirectamente, como consecuencia del
+        incumplimiento de la normativa vigente o de cualquiera de las
+        obligaciones derivadas del uso de este sitio web.
+      </p>
+      <p>
+        Sex Lovers Studio se reserva cuantos medios o acciones legales le
+        correspondan en defensa de sus legítimos derechos de propiedad
+        intelectual e industrial.
+      </p>
+    </section>
+
+    <p class="subtitle">Exención de responsabilidad</p>
+
+    <section class="paragraph-container">
+      <p>
+        Tratamos de ofrecer información útil y actualizada, pero no podemos
+        garantizar la completa veracidad, exactitud, actualización y
+        operatividad de todos los contenidos y servicios. Eludimos por tanto
+        todo tipo de responsabilidad por los posibles daños o perjuicios de
+        cualquier índole que los usuarios pudieran sufrir por la utilización de
+        datos incompletos, inexactos o desactualizados, o por la posible
+        suspensión, cancelación o inoperatividad de sus contenidos o servicios
+        (art 17.1 de la LSSI-CE).
+      </p>
+
+      <p>
+        Agradecemos las posibles sugerencias o comentarios que nos ayuden a
+        mejorar el presente sitio web. La utilización de los contenidos y
+        servicios de este sitio web se hace bajo la única y exclusiva
+        responsabilidad del usuario.
+      </p>
+    </section>
+
+    <p class="subtitle">Enlaces</p>
+    <section class="paragraph-container">
+      <p>
+        Los enlaces externos que conducen a otros sitios web se ofrecen sin
+        ningún ánimo de lucro con el único objetivo de mejorar la información al
+        usuario.
+      </p>
+      <p>
+        Por tanto, no nos hacemos responsables de los contenidos enlazados, ni
+        de las modificaciones que se pudieran realizar en los mismos, ni se
+        garantiza la ausencia de virus u otros elementos en los mismos que
+        puedan producir alteraciones en el sistema informático, excluyendo
+        cualquier responsabilidad por los daños de cualquier clase causados al
+        usuario por este motivo.
+      </p>
+      <p>
+        En el caso de que un enlace sea considerado inadecuado, puede
+        comunicárnoslo por los medios habituales y será rectificado sin
+        dilación.
+      </p>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .wrapper {
+    @apply p-4 w-full max-w-screen-lg mx-auto flex flex-col gap-2;
+  }
+
+  .title {
+    @apply font-bold text-4xl text-center p-4;
+  }
+
+  .subtitle {
+    @apply font-bold;
+  }
+
+  .paragraph-container {
+    @apply flex flex-col gap-2 text-justify;
+  }
+</style>

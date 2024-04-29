@@ -1,7 +1,7 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import { RegisterPage } from "@/components/application/RegisterPage";
+import FormLayout from "@/layouts/FormLayout.astro";
 ---
-
-<Layout title="Opus - Registro">
-  
-</Layout>
+<FormLayout title="Opus - Registro">
+  <RegisterPage client:load />
+</FormLayout>

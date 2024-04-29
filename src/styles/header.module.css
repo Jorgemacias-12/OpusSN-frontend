@@ -1,3 +1,15 @@
-.button {
+/* .button {
   @apply bg-indigo-500 text-white p-1 rounded-md text-center;
+} */
+
+.brandButton {
+  @apply text-center bg-brand-yellow text-black rounded-md h-8 flex items-center justify-center lg:p-2;
+}
+
+.brandLink {
+  @apply inline-flex rounded-md items-center justify-center p-1;
+}
+
+.brandLink:hover {
+  @apply bg-brand-blue-400;
 }
