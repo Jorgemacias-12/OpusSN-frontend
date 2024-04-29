@@ -1,46 +1,22 @@
 import { loggedUser } from '@/stores/UserStore';
 import { getUserAvatarURL } from '@/utils';
 import { useState } from 'react'
+import { Menu } from '../Menu';
 
 export const Header = () => {
 
-  const [menuToggle, setMenuToggle] = useState(false);
-
-  const toggleMenu = () => {
-    setMenuToggle(!menuToggle);
-  }
-
-  const user = loggedUser.get();
-
-  const avatarURL = user ? getUserAvatarURL(user.Name, user.LastName) : '';
-
-  const userInfoSection = <>
-    <a className="text-black text-center bg-brand-yellow p-2 rounded-md shadow-lg hover:shadow-yellow-500/50" href="/login">Inicie sesión</a>
-  </>;
-
-  const userFeedInfo = user ? (<>
-    <p className="text-white text-xl">{user.UserName}</p>
-    <img className="rounded-full" width={48} height={48} src={avatarURL} alt="" />
-  </>) : "";
-
-  const dropdownOptionsAuthenticated = (<>
-    
-  </>);
-
-  const dropdownOptions = (<section className="flex flex-col gap-2">
-    <p className="text-balance text-center mx-auto">Para ver las opciones disponibles, por favor.</p>
-    {userInfoSection}
-  </section>);
-
-  const iconStateEl = menuToggle ? <i className="fas fa-times" /> : <i className="fas fa-bars" />;
-
-  const dropdownClassNameState = menuToggle ? "opacity-100 translate-y-0 pointer-events-auto z-10" : "opacity-0 translate-y-[-10px] z-[-1]  pointer-events-none";
-
-  const dropdownMenuClasses = `flex flex-col absolute top-20 right-0 bg-brand-blue-700 rounded-md p-2 w-52 gap-2 divide-y divide-red-800 transition all duration-300 ease-in-out ${dropdownClassNameState} mt-2.5`;
 
   return (
-    <header className="bg-brand-blue-800 p-2">
-      <section className="flex justify-between items-center">
+    <header className="bg-brand-blue-800 p-2 items-center justify-between flex">
+      <section className="flex items-center gap-2">
+        <img src="/brand-logo-shape.svg" width={64} alt="" />
+        <h1 className="text-brand-yellow font-bold text-3xl">Opus</h1>
+      </section>
+
+      <section className="text-white pr-4">
+        <Menu />
+      </section>
+      {/* <section className="flex justify-between items-center">
         <section className="flex gap-2 items-center">
           <img width={64} className="aspect-square" src="/brand-logo-shape.svg" alt="Opus brand logo" />
           <h1 className="text-brand-yellow sfont-bold text-3xl">Opus</h1>
@@ -63,7 +39,7 @@ export const Header = () => {
             {iconStateEl}
           </span>
         </section>
-      </section>
+      </section> */}
     </header>
   )
 }

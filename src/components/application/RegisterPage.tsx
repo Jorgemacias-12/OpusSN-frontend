@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useState, type ChangeEvent, type FormEvent } from 'react'
 
 import styles from '@/styles/form.module.css'
 import type { NewUser } from '@/types';
@@ -52,19 +52,19 @@ export const RegisterPage = () => {
     setIsLoading(false);
   }
 
-  useEffect(() => {
-    const inputs = document.querySelectorAll(`.${styles.formInput}`);
+  // useEffect(() => {
+  //   const inputs = document.querySelectorAll(`.${styles.formInput}`);
 
-    inputs.forEach((el) => {
-      el.addEventListener('input', inputValidation);
-    })
+  //   inputs.forEach((el) => {
+  //     el.addEventListener('input', inputValidation);
+  //   })
 
-    return () => {
-      inputs.forEach((el) => {
-        el.removeEventListener('input', inputValidation);
-      });
-    }
-  }, []);
+  //   return () => {
+  //     inputs.forEach((el) => {
+  //       el.removeEventListener('input', inputValidation);
+  //     });
+  //   }
+  // }, []);
 
   const validationChain = [
     {
@@ -101,7 +101,7 @@ export const RegisterPage = () => {
     },
   ]
 
-  const inputValidation = (event: Event) => {
+  const inputValidation = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
     const inputValue = target.value;
     const inputId = target.id;
@@ -112,17 +112,14 @@ export const RegisterPage = () => {
     const errorEl = document.querySelector(`#${inputId} ~ .${styles.formFieldInputError}`) as HTMLParagraphElement;
 
     if (!field) {
-      console.log(`field el not found -> ${inputId}`)
       return;
     }
 
     if (!errorEl) {
-      console.log(`error el not found -> ${field.id}`)
       return;
     }
 
     if (!label) {
-      console.log(`label el not found -> ${field.id}`)
       return;
     }
 
@@ -182,6 +179,10 @@ export const RegisterPage = () => {
         else {
           if (errorsCount > 0) errorsCount--;
         }
+
+        // if () {
+
+        // }
 
         break;
       case 'email':
@@ -259,6 +260,7 @@ export const RegisterPage = () => {
               placeholder="Jefferson"
               name="Name"
               id="Name"
+              onInput={inputValidation}
             />
             <p className={`${styles.formFieldInputError}`}>
             </p>
@@ -266,12 +268,16 @@ export const RegisterPage = () => {
 
           <section className={`${styles.formFieldContainer}`}>
             <label className="label" htmlFor="LastName">Apellido(s)</label>
-            <input required className={`${styles.formInput}`}
+            <input
+              required
+              className={`${styles.formInput}`}
               aria-required
               type="text"
               placeholder="Gutierritos"
               name="LastName"
-              id="LastName" />
+              id="LastName"
+              onInput={inputValidation}
+            />
             <p className={`${styles.formFieldInputError}`}>
             </p>
           </section>
@@ -287,7 +293,9 @@ export const RegisterPage = () => {
               id="UserName"
               name="UserName"
               className={`${styles.formInput}`}
-              placeholder="El buki" />
+              placeholder="El buki"
+              onInput={inputValidation}
+            />
             <p className={`${styles.formFieldInputError}`}></p>
           </section>
         </section>
@@ -301,7 +309,9 @@ export const RegisterPage = () => {
             name="Email"
             type="email"
             placeholder="alguien@example.com"
-            className={`${styles.formInput}`} />
+            className={`${styles.formInput}`}
+            onInput={inputValidation}
+          />
           <p className={`${styles.formFieldInputError}`}></p>
         </section>
 
@@ -311,7 +321,9 @@ export const RegisterPage = () => {
             className={`${styles.formInput}`}
             type="password"
             name="Password"
-            id="Password" />
+            id="Password"
+            onInput={inputValidation}
+          />
           <p className={`${styles.formFieldInputError}`}></p>
         </section>
 
@@ -329,7 +341,7 @@ export const RegisterPage = () => {
             Registrarse
           </button>
         </section>
-        
+
         {
           error && !isLoading && <p className="text-red-500">Error al abrirte una cuenta en Opus, por favor espera un tiempo y vuelvelo a intentar.</p>
         }
