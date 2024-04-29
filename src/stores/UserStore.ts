@@ -1,13 +1,7 @@
 import type { SafeUser } from "@/types";
-import { atom } from "nanostores";
+import { persistentAtom } from "@nanostores/persistent";
 
-
-export const loggedUser = atom<SafeUser | null>(null);
-
-export const setLoggedUser = (user: SafeUser) => {
-  loggedUser.set(user);
-}
-
-export const deleteLoggedUser = () => {
-  loggedUser.set(null);
-}
+export const loggedUser = persistentAtom<SafeUser | null>('loggedUser', null, {
+  encode: (value) => JSON.stringify(value),
+  decode: (value) => JSON.parse(value)
+});
