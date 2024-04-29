@@ -24,11 +24,25 @@ jobs:
         run: bun run build
 
       - name: Upload production build to the server
-        uses: GenieTim/ftp-action@v4.0.1
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: ${{ secrets.FTP_SERVER }}
-          user: ${{ secrets.FTP_USERNAME }}
-          password: ""
-          ssh_key: ${{ secrets.SSH_KEY }}
-          localDir: "build"
-          remoteDir: "www/html/"
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          server-dir: 'backend/'
+          exclude: |
+            **/.git/**
+            **/.git*/**
+            **/node_modules/**
+            src/**
+            bun.lockb
+            package.json
+            README.md
+            tsconfig.json
+            .gitignore
+            public/
+            .vscode/
+            .github/
+            astro.config.mjs
+            tailwind.config.mjs
