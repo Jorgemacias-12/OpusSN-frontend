@@ -32,7 +32,7 @@
 }
 
 .formFieldInputError {
-  @apply text-red-500;
+  @apply text-red-500 text-sm;
 }
 
 .submitButton {
