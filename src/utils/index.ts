@@ -1,4 +1,4 @@
-import type { NewUser } from "@/types";
+import type { LoginData, NewUser } from "@/types";
 
 export const getUserAvatarURL = (name: string, lastname: string): string => {
   return `https://ui-avatars.com/api/?name=${name}+${lastname}&background=random`
@@ -35,6 +35,23 @@ export const convertToNewUser = (formData: FormData): NewUser | null => {
     UserName: data.UserName || '',
     Email: data.Email || '',
     Password: data.Password || '',
-    Role: parseInt(data.Role) || 0 
+    Role: parseInt(data.Role) || 0
+  }
+}
+
+export const convertToLoginData = (formData: FormData): LoginData | null => {
+  const data: { [key: string]: string } = {}
+
+  formData.forEach((value, key) => {
+    if (value instanceof File) {
+      return;
+    }
+
+    data[key] = String(value);
+  })
+
+  return {
+    Email: data.Email || '',
+    Password: data.Password || ''
   }
 }
