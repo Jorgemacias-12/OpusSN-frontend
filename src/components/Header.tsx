@@ -23,8 +23,8 @@ export const Header = () => {
 
         <section className="hidden lg:flex items-center gap-4 px-2">
           <a href="/feed" className={`${styles.brandLink}`}>Ir al feed</a>
-          <a href="#" className={`${styles.brandLink}`}>item 2</a>
-          <a href="#" className={`${styles.brandLink}`}>item 3</a>
+          <a href="/legal" className={`${styles.brandLink}`}>Aviso legal</a>
+          <a href="/" className={`${styles.brandLink}`}>Home</a>
         </section>
 
         <section className="relative flex items-center p-2">
@@ -36,8 +36,8 @@ export const Header = () => {
           <section className={`flex flex-col absolute top-20 right-0 bg-brand-blue-700 rounded-md p-2 w-52 gap-2 divide-y divide-red-800 ${dropdownClassNameState} transition-all duration-300 ease-in-out`}>
             <section className="flex flex-col">
               <a href="/feed" className={`${styles.brandLink}`}>Ir al feed</a>
-              <a href="" className={`${styles.brandLink}`}>item 2</a>
-              <a href="" className={`${styles.brandLink}`}>item 3</a>
+              <a href="/legal" className={`${styles.brandLink}`}>Aviso legal</a>
+              <a href="/" className={`${styles.brandLink}`}>Home</a>
             </section>
             <section className="flex flex-col gap-2 pt-2">
               <a href="/login" className={`${styles.brandButton}`}>Iniciar sesión</a>
