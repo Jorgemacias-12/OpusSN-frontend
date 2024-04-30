@@ -2,7 +2,7 @@ import { useState, type ChangeEvent, type FormEvent } from 'react'
 
 import styles from '@/styles/form.module.css'
 import type { NewUser } from '@/types';
-import { convertToNewUser, isValidEmail, isValidUsername } from '@/utils';
+import { convertToNewUser, getAPIURL, isValidEmail, isValidUsername, userExists } from '@/utils';
 
 export const RegisterPage = () => {
 
@@ -12,7 +12,7 @@ export const RegisterPage = () => {
 
   let errorsCount: number = 0;
 
-  const apiURL = "http://localhost:4000/users";
+  const apiURL = `${getAPIURL()}/users`;
 
 
   const createUser = async (userData: NewUser) => {
@@ -87,7 +87,7 @@ export const RegisterPage = () => {
     },
   ]
 
-  const inputValidation = (event: ChangeEvent<HTMLInputElement>) => {
+  const inputValidation = async (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
     const inputValue = target.value.trim();
     const inputId = target.id;
@@ -117,7 +117,7 @@ export const RegisterPage = () => {
 
       label.classList.add('text-red-500');
       target.classList.add('border-red-500');
-      errorEl.textContent = `El campo ${field.id} es obligatorio`;
+      errorEl.textContent = `El campo ${label.textContent} es obligatorio`;
 
       return;
     }
@@ -130,7 +130,7 @@ export const RegisterPage = () => {
 
       label.classList.add('text-red-500');
       target.classList.add('border-red-500');
-      errorEl.textContent = `El campo ${field.id} debe tener al menos ${field.min} caracteres.`;
+      errorEl.textContent = `El campo ${label.textContent} debe tener al menos ${field.min} caracteres.`;
 
       return;
     }
@@ -143,7 +143,7 @@ export const RegisterPage = () => {
 
       label.classList.add('text-red-500');
       target.classList.add('border-red-500');
-      errorEl.textContent = `El campo ${field.id} no debe exceder los ${field.max} caracteres.`;
+      errorEl.textContent = `El campo ${label.textContent} no debe exceder los ${field.max} caracteres.`;
 
       return;
     }
@@ -166,8 +166,23 @@ export const RegisterPage = () => {
           if (errorsCount > 0) errorsCount--;
         }
 
-        // if () {
+        // const isAvailable = await userExists(inputValue);
 
+        // if (isAvailable) {
+        //   console.log("Disponible")
+        //   return;
+        // }
+        // else {
+        //   console.log("Coito")
+        //   return;
+        // } 
+
+        // fetch to the user endpoint and check if users exists
+        // if (await !userExists(inputValue)) {
+        //   console.log("lamento boliviano")
+        // } 
+        // else {
+        //   console.log("Ola")
         // }
 
         break;
@@ -271,7 +286,7 @@ export const RegisterPage = () => {
 
         <section className={`${styles.formFieldContainer}`}>
           <label className="label" htmlFor="UserName">Nombre de usuario</label>
-          <section className="">
+          <section className="relative">
             <input
               aria-required
               required

@@ -1,7 +1,7 @@
 import { loggedUser } from '@/stores/UserStore';
 import styles from '@/styles/form.module.css'
 import type { AuthResponse, LoginData } from '@/types';
-import { convertToLoginData, isValidEmail } from '@/utils';
+import { convertToLoginData, getAPIURL, isValidEmail } from '@/utils';
 import react, { useEffect, useState, type FormEvent } from 'react'
 
 
@@ -18,7 +18,7 @@ export const LoginPage = () => {
   const login = async (loginData: LoginData) => {
     setError(false);
 
-    const apiURL = "http://localhost:4000/users/auth";
+    const apiURL = `${getAPIURL()}/users/auth`;
 
     const fetchOptions = {
       method: "POST",
@@ -26,7 +26,6 @@ export const LoginPage = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(loginData),
-
     }
 
     setIsLoading(true);
