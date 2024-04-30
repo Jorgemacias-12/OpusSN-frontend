@@ -1,0 +1,46 @@
+name: Deploy frontend
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v4
+
+      - name: Install bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install depedencies
+        run: bun install
+        
+      - name: Compile frontend
+        run: bun run build
+
+      - name: Upload production build to the server
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          exclude: |
+            **/.git/**
+            **/.git*/**
+            **/node_modules/**
+            src/**
+            bun.lockb
+            package.json
+            README.md
+            tsconfig.json
+            public/**
+            .vscode/**
+            .github/**
+            astro.config.mjs
+            tailwind.config.mjs
