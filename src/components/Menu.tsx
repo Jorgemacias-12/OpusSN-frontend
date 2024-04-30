@@ -49,7 +49,12 @@ export const Menu = () => {
 
         <section>
           <a className="block text-center bg-brand-yellow rounded-md mt-2 text-black p-2 w-full" href="/">Inicio</a>
-          <button onClick={signout} className="bg-brand-yellow rounded-md mt-2 text-black p-2 w-full">Cerrar sesión</button>
+          {
+            !$user && <a  className="block text-center bg-brand-yellow rounded-md mt-2 text-black p-2 w-full" href="/login">Iniciar sesión</a>
+          }
+          {
+            $user && <button onClick={signout} className="bg-brand-yellow rounded-md mt-2 text-black p-2 w-full">Cerrar sesión</button>
+          }
         </section>
       </section>
 
