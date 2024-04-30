@@ -1,0 +1,7 @@
+.aspectContainer {
+  @apply w-full h-96 flex justify-center;
+}
+
+.aspectContainer > img {
+  @apply max-w-screen-xs h-auto;
+}
