@@ -52,20 +52,6 @@ export const RegisterPage = () => {
     setIsLoading(false);
   }
 
-  // useEffect(() => {
-  //   const inputs = document.querySelectorAll(`.${styles.formInput}`);
-
-  //   inputs.forEach((el) => {
-  //     el.addEventListener('input', inputValidation);
-  //   })
-
-  //   return () => {
-  //     inputs.forEach((el) => {
-  //       el.removeEventListener('input', inputValidation);
-  //     });
-  //   }
-  // }, []);
-
   const validationChain = [
     {
       id: 'Name',
