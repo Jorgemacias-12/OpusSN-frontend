@@ -89,7 +89,7 @@ export const RegisterPage = () => {
 
   const inputValidation = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
-    const inputValue = target.value;
+    const inputValue = target.value.trim();
     const inputId = target.id;
 
     const field = validationChain.find((item) => item.id === inputId);
