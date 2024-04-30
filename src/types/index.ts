@@ -31,3 +31,21 @@ export interface CategoryAPIResponse {
   categories: Category[];
   categoryCount: number;
 }
+
+export interface AdCampaign {
+  id: string;
+  name: string;
+  url: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+export interface NewPost {
+  Title: string;
+  Content: string;
+  CreationDate: Date;
+  UpdateDate?: Date;
+  Categories: number[];
+  User: number;
+}

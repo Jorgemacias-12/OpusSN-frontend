@@ -20,8 +20,8 @@ export const RandomAd = () => {
   return (
     <>
       {
-        ad && <div className={`${styles.aspectContainer} ${getAspectRatioClass(ad.width, ad.height)}`}>
-          <img src={ad.url} alt={ad.alt} id={ad.id} className="rounded-md" />
+        ad && <div className={`p-4 ${styles.aspectContainer} ${getAspectRatioClass(ad.width, ad.height)}`}>
+          <img  src={ad.url} alt={ad.alt} id={ad.id} className="rounded-md h-auto" />
         </div>
       }
     </>

@@ -18,7 +18,7 @@ export const Header = () => {
       <section className="w-full max-w-screen-xl flex justify-between">
         <section className="flex gap-2 items-center p-2">
           <img width={64} className='aspect-square' src={"/brand-logo-shape.svg"} alt="Opus brand logo" />
-          <h1>Opus</h1>
+          <h1 className="text-brand-yellow font-bold text-3xl">Opus</h1>
         </section>
 
         <section className="hidden lg:flex items-center gap-4 px-2">

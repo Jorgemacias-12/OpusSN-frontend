@@ -2,14 +2,19 @@ import { loggedUser } from '@/stores/UserStore';
 import { Categories } from './Categories'
 import { RandomAd } from './RandomAd'
 import { Header } from './application/Header'
-import { NewPost } from './application/NewPost'
+import { CreatePost } from './application/NewPost'
 
 
 import styles from '@/styles/Feed.module.css';
+import { useEffect } from 'react';
 
 export const Feed = () => {
 
   const $user = loggedUser.get();
+
+  useEffect(() => {
+
+  }, [])
 
   return (
     <>
@@ -24,17 +29,21 @@ export const Feed = () => {
           <Categories />
         </section>
 
-        <section className="justify-self-center flex flex-col items-center p-4 w-full order-2 md:order-1 gap-10">
+        <section className="justify-self-center flex flex-col items-center p-4 w-full order-2 md:order-1 gap-2">
           <h3 className="text-4xl max-w-screen-sm rounded-md text-green-400 p-4 w-full text-center">¡Bienvenido al feed!</h3>
 
           <section className="max-w-screen-xs w-full">
             {
-              $user && <NewPost />
+              $user && <CreatePost />
             }
           </section>
 
           <section>
+            <h3 className="text-4xl max-w-screen-sm rounded-md text-green-400 p-4 w-full text-center">Posts</h3>
 
+            <section className='flex flex-col gap-2'>
+            
+            </section>
           </section>
         </section>
       </main>

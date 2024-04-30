@@ -1,11 +1,11 @@
 import { loggedUser } from '@/stores/UserStore'
+import type { SafeUser } from '@/types';
 import { getUserAvatarURL } from '@/utils';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const Menu = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-
-  const $user = loggedUser.get();
+  const [$user, setUser] = useState<SafeUser | null>(null);
 
   const toggleMenu = () => {
     setIsMenuVisible(!isMenuVisible);
@@ -20,7 +20,9 @@ export const Menu = () => {
   const menuIconClass = isMenuVisible ? 'fa-times' : 'fa-bars';
   const dropdownClassNameState = isMenuVisible ? "opacity-100 translate-y-0 pointer-events-auto z-10" : "opacity-0 translate-y-[-10px] z-[-1]  pointer-events-none";
 
-
+  useEffect(() => {
+    setUser(loggedUser.get());
+  }, [$user]);
 
   return (
     <section className="relative flex gap-4 items-center">
