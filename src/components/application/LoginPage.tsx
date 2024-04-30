@@ -7,15 +7,13 @@ import react, { useEffect, useState, type FormEvent } from 'react'
 
 export const LoginPage = () => {
 
+  const $user = loggedUser.get();
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const [response, setResponse] = useState<AuthResponse | null>(null);
 
   let errorsCount = 0;
-
-  // TODO: I have also import the user store, to save the data there, and then
-  // TODO: redirect to /feed.
-
 
   const login = async (loginData: LoginData) => {
     setError(false);
@@ -156,6 +154,11 @@ export const LoginPage = () => {
   }
 
   useEffect(() => {
+
+    if ($user != null) {
+      location.href = "/feed";
+    }
+
     const inputs = document.querySelectorAll(`.${styles.formInput}`);
 
     inputs.forEach((el) => {
