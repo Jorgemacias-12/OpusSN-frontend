@@ -31,3 +31,56 @@ export interface CategoryAPIResponse {
   categories: Category[];
   categoryCount: number;
 }
+
+export interface AdCampaign {
+  id: string;
+  name: string;
+  url: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+export interface NewPost {
+  Title: string;
+  Content: string;
+  CreationDate: Date;
+  UpdateDate?: Date;
+  Categories: number[];
+  User: number;
+}
+
+export interface BasePost {
+  id: number;
+  Title: string;
+  Content: string;
+  CreationDate: Date;
+  UpdateDate?: Date | null;
+  Categories: Category[];
+  userId: number;
+}
+
+export interface PostCreationReponse {
+  createdPost: BasePost | null,
+  error?: {
+    message: string;
+  }
+}
+
+export interface BasePost {
+  id: number;
+  Title: string;
+  Content: string;
+  CreationDate: Date;
+  UpdateDate?: Date | null;
+  Categories: Category[];
+  userId: number;
+}
+
+export interface PostsReponse {
+  posts: BasePost[] | null;
+  postCount?: number;
+  error?: {
+    message: string;
+  }
+}

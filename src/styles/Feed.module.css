@@ -1,0 +1,10 @@
+.feedContainer {
+  @apply grid bg-brand-slate-800 text-white;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .feedContainer {
+    grid-template-columns: 1fr 500px;
+  }
+}

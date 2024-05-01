@@ -2,6 +2,7 @@
 import { Header } from "@/components/Header";
 import Layout from "../layouts/Layout.astro";
 import { Footer } from "@/components/Footer";
+import { RandomAd } from "@/components/RandomAd";
 ---
 
 <Layout title="Opus - Aviso legal">
@@ -126,6 +127,11 @@ import { Footer } from "@/components/Footer";
         comunicárnoslo por los medios habituales y será rectificado sin
         dilación.
       </p>
+    </section>
+
+    <section class="paragraph-container">
+      <h2 class="title">Anuncios</h2>
+      <RandomAd client:load/>
     </section>
   </main>
   <Footer />

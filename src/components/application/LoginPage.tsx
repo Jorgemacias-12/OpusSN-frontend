@@ -1,11 +1,13 @@
 import { loggedUser } from '@/stores/UserStore';
 import styles from '@/styles/form.module.css'
 import type { AuthResponse, LoginData } from '@/types';
-import { convertToLoginData, isValidEmail } from '@/utils';
+import { convertToLoginData, getAPIURL, isValidEmail } from '@/utils';
 import react, { useEffect, useState, type FormEvent } from 'react'
 
 
 export const LoginPage = () => {
+
+  const $user = loggedUser.get();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -13,14 +15,10 @@ export const LoginPage = () => {
 
   let errorsCount = 0;
 
-  // TODO: I have also import the user store, to save the data there, and then
-  // TODO: redirect to /feed.
-
-
   const login = async (loginData: LoginData) => {
     setError(false);
 
-    const apiURL = "http://localhost:4000/users/auth";
+    const apiURL = `${getAPIURL()}/users/auth`;
 
     const fetchOptions = {
       method: "POST",
@@ -28,7 +26,6 @@ export const LoginPage = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(loginData),
-
     }
 
     setIsLoading(true);
@@ -156,6 +153,11 @@ export const LoginPage = () => {
   }
 
   useEffect(() => {
+
+    if ($user != null) {
+      location.href = "/feed";
+    }
+
     const inputs = document.querySelectorAll(`.${styles.formInput}`);
 
     inputs.forEach((el) => {
