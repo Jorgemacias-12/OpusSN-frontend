@@ -49,4 +49,4 @@ jobs:
             .github/**
             astro.config.mjs
             tailwind.config.mjs
-          server-dir: 'frontend/'
+          server-dir: "frontend/"
