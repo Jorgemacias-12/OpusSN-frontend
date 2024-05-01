@@ -1,7 +1,7 @@
 import type { CategoryAPIResponse } from '@/types';
 import { getAPIURL } from '@/utils';
-import { Category } from 'dist/_astro/Category.CpswjASR';
 import React, { useEffect, useState } from 'react'
+import { Category } from './application/Category';
 
 export const Categories = () => {
 
