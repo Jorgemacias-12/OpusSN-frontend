@@ -7,6 +7,7 @@ import { CreatePost } from './application/NewPost'
 
 import styles from '@/styles/Feed.module.css';
 import { useEffect } from 'react';
+import { Posts } from './Posts';
 
 export const Feed = () => {
 
@@ -42,7 +43,7 @@ export const Feed = () => {
             <h3 className="text-4xl max-w-screen-sm rounded-md text-green-400 p-4 w-full text-center">Posts</h3>
 
             <section className='flex flex-col gap-2'>
-            
+              <Posts />
             </section>
           </section>
         </section>

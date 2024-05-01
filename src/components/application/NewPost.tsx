@@ -1,5 +1,5 @@
 import { loggedUser } from '@/stores/UserStore'
-import type { CategoryAPIResponse, NewPost, SafeUser } from '@/types';
+import { type PostCreationReponse, type CategoryAPIResponse, type NewPost, type SafeUser } from '@/types';
 import { convertToPostData, getAPIURL, getUserAvatarURL } from '@/utils';
 import { persistentAtom } from '@nanostores/persistent';
 import { useStore } from '@nanostores/react';
@@ -15,7 +15,7 @@ export const CreatePost = () => {
 
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [response, setResponse] = useState();
+  const [response, setResponse] = useState<PostCreationReponse | null>(null);
 
   let errorsCount = 0;
 
@@ -49,9 +49,6 @@ export const CreatePost = () => {
     if (!el) return;
     if (!categoryId) return;
 
-    console.log(el);
-    console.log(categoryId);
-
     el.classList.add('bg-[#f3722c]');
     
     const updatedSelectedCategories = new Set(categoryList);
@@ -67,10 +64,39 @@ export const CreatePost = () => {
   }
 
   const createPost = async (post: NewPost) => {
+    
+    setIsLoading(true);
+    
+    if (errorsCount != 0){
+      setIsLoading(false);
+      setError(true);
+      return;
+    }
+    
     try {
+      const apiURL = `${getAPIURL()}/posts`
+     
+      const fetchOptions = {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(post)
+      }
 
+      const response = await fetch(apiURL, fetchOptions)
+
+      const data = await response.json();
+
+      setIsLoading(false);
+
+      setResponse(data);
+
+      alert("Funciona!")
     }
     catch (err) {
+      setIsLoading(false);
+      setError(true);
       throw err;
     }
 
@@ -182,7 +208,6 @@ export const CreatePost = () => {
 
     target.classList.add('border-teal-500');
     label.classList.add('text-teal-500');
-
   }
 
   const buttonLoader = <span className="animate-spin w-6 h-6 border-2 rounded-full border-l-black"></span>

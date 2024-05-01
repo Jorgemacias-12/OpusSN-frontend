@@ -49,3 +49,38 @@ export interface NewPost {
   Categories: number[];
   User: number;
 }
+
+export interface BasePost {
+  id: number;
+  Title: string;
+  Content: string;
+  CreationDate: Date;
+  UpdateDate?: Date | null;
+  Categories: Category[];
+  userId: number;
+}
+
+export interface PostCreationReponse {
+  createdPost: BasePost | null,
+  error?: {
+    message: string;
+  }
+}
+
+export interface BasePost {
+  id: number;
+  Title: string;
+  Content: string;
+  CreationDate: Date;
+  UpdateDate?: Date | null;
+  Categories: Category[];
+  userId: number;
+}
+
+export interface PostsReponse {
+  posts: BasePost[] | null;
+  postCount?: number;
+  error?: {
+    message: string;
+  }
+}

@@ -32,8 +32,6 @@ export const RegisterPage = () => {
         body: JSON.stringify(userData),
       }
 
-      console.log(userData);
-
       const response = await fetch(apiURL, fetchOptions);
 
       const data = await response.json();
