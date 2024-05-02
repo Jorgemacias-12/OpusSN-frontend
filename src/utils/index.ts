@@ -103,7 +103,5 @@ export const getAspectRatioClass = (width: number, height: number): string => {
 }
 
 export const getAPIURL = (): string => {
-  return  process.env.NODE_ENV === 'production'
-  ? `http://${process.env.API_URL}` || ''
-  : 'http://localhost:4000';
+  return  "167.172.192.216"
 }
