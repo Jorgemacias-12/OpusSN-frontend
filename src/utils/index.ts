@@ -103,5 +103,5 @@ export const getAspectRatioClass = (width: number, height: number): string => {
 }
 
 export const getAPIURL = (): string => {
-  return  "167.172.192.216"
+  return  "http://167.172.192.216:4000"
 }
