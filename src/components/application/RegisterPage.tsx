@@ -20,6 +20,7 @@ export const RegisterPage = () => {
     setIsLoading(true);
 
     if (errorsCount != 0) {
+      setIsLoading(false);
       return;
     }
 
@@ -337,7 +338,10 @@ export const RegisterPage = () => {
             {
               !error && !isLoading && response && <span className="fa fa-check"></span>
             }
-            Registrarse
+
+            {
+              isLoading && !error ? 'Registrando...' : 'Registrarse'
+            }
           </button>
         </section>
 
