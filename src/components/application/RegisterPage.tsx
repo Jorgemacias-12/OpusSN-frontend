@@ -241,7 +241,7 @@ export const RegisterPage = () => {
         onSubmit={onSubmit}
       >
 
-        <input name='Role' value={"0"} id="Role" className='hidden' type="text" />
+        <input name='Role' value={"0"} onChange={inputValidation} id="Role" className='hidden' type="text" />
 
         <section className={`${styles.brandContainer}`}>
           <img width={250} height={150} src="/brand-logo-full.svg" alt="Opus full brand logo" className="mx-auto" />
