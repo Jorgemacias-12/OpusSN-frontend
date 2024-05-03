@@ -60,7 +60,7 @@ export const RegisterPage = () => {
     {
       id: 'LastName',
       required: true,
-      min: 5,
+      min: 3,
       max: 30
     },
     {
