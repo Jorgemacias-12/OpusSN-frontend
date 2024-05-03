@@ -8,7 +8,8 @@
 }
 
 .form {
-  @apply flex flex-col bg-brand-blue-900 p-4 gap-4 max-w-screen-xs text-white rounded-md m-5 md:m-0 md:max-w-screen-md lg:max-w-screen-lg w-96;
+  @apply flex flex-col bg-brand-blue-900 p-4 gap-4 text-white rounded-md m-5 md:m-0 md:max-w-screen-xs ;
+  width: calc(100% - 2rem);
 }
 
 .brandContainer {
