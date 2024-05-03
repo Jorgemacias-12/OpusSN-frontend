@@ -20,6 +20,7 @@ export const RegisterPage = () => {
     setIsLoading(true);
 
     if (errorsCount != 0) {
+      setIsLoading(false);
       return;
     }
 
@@ -60,7 +61,7 @@ export const RegisterPage = () => {
     {
       id: 'LastName',
       required: true,
-      min: 5,
+      min: 3,
       max: 30
     },
     {
@@ -241,7 +242,7 @@ export const RegisterPage = () => {
         onSubmit={onSubmit}
       >
 
-        <input name='Role' value={"0"} id="Role" className='hidden' type="text" />
+        <input name='Role' value={"0"} onChange={inputValidation} id="Role" className='hidden' type="text" />
 
         <section className={`${styles.brandContainer}`}>
           <img width={250} height={150} src="/brand-logo-full.svg" alt="Opus full brand logo" className="mx-auto" />
@@ -337,7 +338,10 @@ export const RegisterPage = () => {
             {
               !error && !isLoading && response && <span className="fa fa-check"></span>
             }
-            Registrarse
+
+            {
+              isLoading && !error ? 'Registrando...' : 'Registrarse'
+            }
           </button>
         </section>
 
