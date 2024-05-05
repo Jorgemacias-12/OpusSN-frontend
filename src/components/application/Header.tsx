@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { Menu } from "../Menu";
 
 export const Header = () => {
-  const [showUserProfile, setShowUserProfile] = useState(true);
+  const [showUserProfile, setShowUserProfile] = useState(false);
   const user = useStore(loggedUser);
   const showAvatar = user && user.Name && user.LastName;
 
