@@ -75,6 +75,7 @@ export interface BasePost {
   UpdateDate?: Date | null;
   Categories: Category[];
   userId: number;
+  User: User;
 }
 
 export interface PostsReponse {
@@ -84,3 +85,5 @@ export interface PostsReponse {
     message: string;
   }
 }
+
+export type TabType = 'posts' | 'categories';
