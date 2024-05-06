@@ -12,7 +12,7 @@ export const Categories = () => {
 
   useEffect(() => {
 
-    const fetchAPI = async () => {
+    const fetchCategories = async () => {
       const apiUrl = getAPIURL();
 
       setLoading(true);
@@ -37,18 +37,18 @@ export const Categories = () => {
       }
     }
 
-    fetchAPI();
+    fetchCategories();
   }, [])
 
   return (
-    <section className="bg-brand-slate mx-auto rounded-md">
-      <h3 className='text-2xl text-center font-bold'>
+    <section className="bg-brand-black-900 rounded-md md:hidden max-w-screen-xs mx-auto p-2">
+      <h3 className='text-2xl text-center font-bold '>
         Categorias
       </h3>
-      <section className=" p-2 flex flex-col gap-2">
+      <section className="p-2 flex flex-col gap-2">
 
         {
-          loading && !error && <span className="border-2 w-8 h-8 rounded-full border-l-indigo-500 animate-spin"></span>
+          loading && !error && <span className="border-2 w-8 h-8 rounded-full border-l-indigo-500 animate-spin mx-auto m-5"></span>
         }
 
         {

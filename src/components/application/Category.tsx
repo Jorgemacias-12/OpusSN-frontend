@@ -15,7 +15,7 @@ export const Category = ({ id, name }: CategoryProps) => {
   }
 
   return (
-    <section onClick={selectCategory} className={`flex items-center p-2 bg-indigo-600 text-white rounded-md gap-2`}>
+    <section className={`flex items-center p-2 bg-indigo-600 text-white rounded-md gap-2 justify-between`}>
       <p>{name}</p>
       <span className="fas fa-tag"></span>
     </section>

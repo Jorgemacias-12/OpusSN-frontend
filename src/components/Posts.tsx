@@ -1,7 +1,7 @@
 import type { PostsReponse } from '@/types'
 import { getAPIURL } from '@/utils'
 import React, { useEffect, useState } from 'react'
-import Post from './application/Post';
+import { Post } from './application/Post';
 
 export const Posts = () => {
 
@@ -25,13 +25,13 @@ export const Posts = () => {
     }
 
     fetchPosts();
-  })
+  }, [])
 
   return (
     <section className="flex flex-col gap-4 items-center">
       {
         posts && posts.posts && posts.posts.map(post => {
-          return <Post id={post.id} Title={post.Title} Content={post.Content} CreationDate={post.CreationDate} userId={post.userId} categories={post.Categories} />
+          return <Post key={post.id} id={post.id} Title={post.Title} Content={post.Content} CreationDate={post.CreationDate} userId={post.userId} Categories={post.Categories} User={post.User} UpdateDate={post.UpdateDate} />
         })
       }
     </section>

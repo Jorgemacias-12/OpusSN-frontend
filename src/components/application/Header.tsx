@@ -1,5 +1,3 @@
-
-
 import { loggedUser } from "@/stores/UserStore"
 import { getUserAvatarURL } from "@/utils";
 import { useStore } from "@nanostores/react"
@@ -26,10 +24,9 @@ export const Header = () => {
 
   return (
     <header className="bg-brand-blue-900 text-white flex h-16 p-4">
-      <section className="flex w-full justify-between md:hidden">
-        {
-          showAvatar && <img onClick={toggleModal} className="rounded-full active:border active:border-slate-100 border border-transparent" src={getUserAvatarURL(user.Name, user.LastName)} width={32} height={32} />
-        }
+      <section className="flex w-full justify-between md:hidden items-center">
+        <span onClick={toggleModal} className="fas fa-bars fa-xl"></span>
+
 
         <h1 className="text-brand-yellow font-bold text-2xl">Opus</h1>
 
@@ -48,14 +45,23 @@ export const Header = () => {
         </div>
       </section>
 
-      <dialog className={`absolute m-0 bg-brand-blue-900 text-white border border-slate-600 rounded-md min-h-screen md:hidden flex flex-col justify-between top-0 ${showUserProfile ? 'visible' : 'hidden'} w-full`}>
+      <dialog className={`absolute m-0 bg-brand-blue-900 text-white border border-slate-600 rounded-md min-h-svh md:hidden flex flex-col justify-between top-0 ${showUserProfile ? 'visible' : 'hidden'} w-full`}>
         <section className="p-4">
           <section className="flex items-center justify-between p-2 w-full">
-            <div className="flex gap-2 items-center">
+            <div className={`flex gap-2 items-center`}>
+              {
+                !showAvatar && <a className="p-2 text-black rounded-md bg-brand-yellow" href="/login">Inicia sesión</a>
+              }
+              {
+                !showAvatar && <p>ó</p>
+              }
+              {
+                !showAvatar && <a className="p-2 text-black rounded-md bg-brand-yellow" href="/register">Registrarse</a>
+              }
+
               {
                 showAvatar && <img className="rounded-full active:border active:border-slate-100 border border-transparent" src={getUserAvatarURL(user.Name, user.LastName)} width={32} height={32} />
               }
-
               {
                 showAvatar && <h2>{user.Name} {user.LastName}</h2>
               }
@@ -73,10 +79,19 @@ export const Header = () => {
         </section>
 
         <section className="p-4">
-          <button onClick={logout} className="flex gap-2 items-center bg-brand-yellow text-black p-2 rounded-md w-full justify-center">
-            <span className="fas fa-sign-out"></span>
-            Cerrar sesión
-          </button>
+          {
+            showAvatar && (
+              <button onClick={logout} className="flex gap-2 items-center bg-brand-yellow text-black p-2 rounded-md w-full justify-center">
+                <span className="fas fa-sign-out"></span>
+                Cerrar sesión
+              </button>
+            )
+          }
+          {
+            !showAvatar && (
+              <a className="flex gap-2 items-center bg-brand-yellow text-black p-2 rounded-md w-full justify-center" href="/">Ir al inicio</a>
+            )
+          }
         </section>
       </dialog>
     </header>

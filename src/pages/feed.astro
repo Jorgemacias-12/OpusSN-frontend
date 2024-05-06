@@ -1,9 +1,9 @@
 ---
-import Layout from "@/layouts/Layout.astro";
+import AppLayout from "@/layouts/AppLayout.astro";
 
 import { Feed as FeedApp } from "@/components/Feed";
 ---
 
-<Layout title="Opus - mi feed">
-  <FeedApp client:load />
-</Layout>
+<AppLayout title="Opus - Feed">
+  <FeedApp client:only="react"/>
+</AppLayout>
