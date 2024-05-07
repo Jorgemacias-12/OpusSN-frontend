@@ -86,4 +86,14 @@ export interface PostsReponse {
   }
 }
 
+export interface Comment {
+  id: number;
+  Content: string;
+  CreatedAt: Date;
+  postId: number;
+  userId: number;
+  User: SafeUser;
+}
+
+
 export type TabType = 'posts' | 'categories';
