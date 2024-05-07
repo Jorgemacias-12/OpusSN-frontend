@@ -1,14 +1,18 @@
-import type { BasePost } from "@/types"
-import { getTimeDifferenceString, getUserAvatarURL } from "@/utils"
+import type { BasePost, Comment } from "@/types"
+import { getAPIURL, getTimeDifferenceString, getUserAvatarURL } from "@/utils"
 import { Category } from "./Category";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { loggedUser } from "@/stores/UserStore";
-
+import type { Comment as CommentType } from '@/types';
+import { Comment as CommentComponent } from "../Comment";
+import { CreateComment } from "../CreateComment";
 
 export const Post = ({ id, Title, Content, CreationDate, Categories, User, UpdateDate }: BasePost) => {
   const [toggleCategories, setToggleCategories] = useState(false);
   const [toggleComments, setToggleComments] = useState(false);
+  // TODO: import the type from the backend project :P
+  const [comments, setComments] = useState<CommentType[] | null>(null);
   const currentUser = useStore(loggedUser);
 
   const date = new Date(CreationDate);
@@ -21,7 +25,31 @@ export const Post = ({ id, Title, Content, CreationDate, Categories, User, Updat
     setToggleComments(!toggleComments);
   }
 
+  useEffect(() => {
+    const fetchComments = async () => {
+      const apiURL = `${getAPIURL()}/comments/${id}`;
+
+      try {
+
+        const response = await fetch(apiURL);
+
+        const data = await response.json();
+
+        const { comments } = data;
+
+        setComments(comments);
+      }
+      catch (err) {
+        throw err;
+      }
+    }
+
+    fetchComments();
+  }, []);
+
   const isUserOwner = currentUser && currentUser.id === User.id;
+
+  const validUser = currentUser && currentUser.id && currentUser.Name && currentUser.LastName && currentUser.Email && currentUser.Role != null && currentUser.UserName;
 
   return (
     <article className="rounded-md bg-brand-black-800 p-2 flex flex-col w-full max-w-screen-xs gap-2">
@@ -70,39 +98,30 @@ export const Post = ({ id, Title, Content, CreationDate, Categories, User, Updat
         <h4>Comentarios</h4>
         <button onClick={handleCommentsToggle}>
           {
-            toggleComments ? <span className="fas fa-comment-slash"></span> : <span className="fas fa-comment"></span>
+            toggleComments ? <span className="fas fa-comment-slash text-red-500"></span> : <span className="fas fa-comment"></span>
           }
-        </button>  
+        </button>
       </section>
-          
+
       {
         toggleComments && (
-          <section>
-            
+          <section className="flex flex-col gap-2">
+            {
+              comments && comments.length === 0 && <p className="bg-blue-500 rounded-md p-2">No hay posts, se el primero en comentar</p>
+            }
+            {
+              comments && comments.map((comment) => {
+                return <CommentComponent id={comment.id} Content={comment.Content} CreatedAt={comment.CreatedAt} User={comment.User} userId={comment.userId} key={comment.id} postId={comment.postId} />
+              })
+            }
           </section>
         )
       }
+
+      {
+        validUser && <CreateComment id={currentUser.id} Name={currentUser.Name} LastName={currentUser.LastName} Email={currentUser.Email} Role={currentUser.Role} UserName={currentUser.UserName} />
+      }
+      {/* <CreateComment id={currentUser.id} Name={currentUser?.Name} /> */}
     </article>
   )
 }
-
-// <article className="rounded-md bg-brand-black-800 p-2 max-w-screen-xs w-full flex flex-col gap-4">
-//   <section className="flex justify-between gap-4 items-center text-ellipsis">
-//     <h3>{Title}</h3>
-//     <p className="text-xs text-ellipsis">Hace {getDifferenceInDays(date, now)} días</p>
-//   </section>
-//   <section>
-//     <textarea readOnly className="w-full bg-transparent rounded-md p-2" name="" id="" value={Content}>
-//     </textarea>
-//   </section>
-//   <section className="flex flex-col gap-2">
-//     <h4>Categorias</h4>
-//     <div className="flex overflow-y-scroll gap-4">
-//       {
-//         Categories.map((cat, index) => {
-//           return <p className="w-96" key={index}>{cat.Name}</p>
-//         })
-//       }
-//     </div>
-//   </section>
-// </article>
