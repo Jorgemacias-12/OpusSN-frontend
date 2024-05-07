@@ -111,51 +111,35 @@ export const getTimeDifferenceString = (date: Date) => {
   const SECONDS_PER_MINUTE = 60;
   const MINUTES_PER_HOUR = 60;
   const HOURS_PER_DAY = 24;
-  const SINGULAR_THRESHOLD = 1;
+  const VALUE_TO_CHECK = 0;
+  const THRESHOLD_VALUE = 1;
 
   const now = new Date();
 
   const differenceInMillis = now.getTime() - date.getTime();
-  const differenceInSeconds = Math.floor(differenceInMillis / MILLISECONDS_PER_SECOND);
 
-  console.log(differenceInSeconds)
+  const seconds = Math.floor(differenceInMillis / MILLISECONDS_PER_SECOND);
+  const minutes = Math.floor(seconds / SECONDS_PER_MINUTE);
+  const hours = Math.floor(minutes / MINUTES_PER_HOUR);
+  const days = Math.floor(hours / HOURS_PER_DAY);
 
-  const thresholds = [
-    {
-      limit: SECONDS_PER_MINUTE,
-      unit: 'segundo',
-      plural: 's'
-    },
-    {
-      limit: SECONDS_PER_MINUTE * MINUTES_PER_HOUR,
-      unit: 'hora',
-      plural: 's'
-    },
-    {
-      limit: SECONDS_PER_MINUTE * MINUTES_PER_HOUR * HOURS_PER_DAY,
-      unit: 'día',
-      plural: 's'
-    },
-  ]
-
-  const match = thresholds.find((time) => {
-    console.log(`Limit: ${time.limit}`);
-    console.log(`Difference: ${differenceInSeconds}`);
-    
-    console.log(differenceInMillis < time.limit);
-
-    return differenceInSeconds < time.limit;
-  })
-
-  console.log(match);
-
-  if (match) {
-    const timeValue = Math.floor(differenceInSeconds / (match.limit / match.limit));
-
-    const pluralSuffix = timeValue !== SINGULAR_THRESHOLD ? match.plural : '';
-
-    return `Hace ${timeValue} ${match.unit}${pluralSuffix}`;
+  let result = "";
+  
+  if (seconds > VALUE_TO_CHECK && result !== '') {
+    result = `${seconds} segundo${seconds > THRESHOLD_VALUE ? 's' : ''} `
+  }
+  
+  if (minutes > VALUE_TO_CHECK && result !== '') {
+    result = `${minutes} minuto${minutes > THRESHOLD_VALUE ? 's' : ''} `
+  }
+  
+  if (hours > VALUE_TO_CHECK && result !== '') {
+    result = `${hours} hora${hours > THRESHOLD_VALUE ? 's' : ''} `
   }
 
-  return 'Más antiguo';
+  if (days > VALUE_TO_CHECK) {
+    result = `${days} día${days > THRESHOLD_VALUE ? 's' : ''} `
+  }
+
+  return `Hace ${result.trim()}`;
 }
