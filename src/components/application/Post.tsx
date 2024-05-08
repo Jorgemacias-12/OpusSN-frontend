@@ -25,6 +25,14 @@ export const Post = ({ id, Title, Content, CreationDate, Categories, User, Updat
     setToggleComments(!toggleComments);
   }
 
+  const handlePostEdit = () => {
+
+  }
+
+  const handlePostDelete = () => {
+
+  }
+
   useEffect(() => {
     const fetchComments = async () => {
       const apiURL = `${getAPIURL()}/comments/${id}`;
@@ -88,8 +96,8 @@ export const Post = ({ id, Title, Content, CreationDate, Categories, User, Updat
       {
         isUserOwner && (
           <section className="flex gap-2 items-center justify-end">
-            <button className="h-8 px-2 bg-blue-500 rounded-md">Editar</button>
-            <button className="h-8 px-2 bg-red-500 rounded-md">Eliminar</button>
+            <button onClick={handlePostEdit} className="h-8 px-2 bg-blue-500 rounded-md">Editar</button>
+            <button onClick={handlePostDelete} className="h-8 px-2 bg-red-500 rounded-md">Eliminar</button>
           </section>
         )
       }
@@ -119,9 +127,8 @@ export const Post = ({ id, Title, Content, CreationDate, Categories, User, Updat
       }
 
       {
-        validUser && <CreateComment id={currentUser.id} Name={currentUser.Name} LastName={currentUser.LastName} Email={currentUser.Email} Role={currentUser.Role} UserName={currentUser.UserName} />
+        validUser && <CreateComment User={currentUser} PostId={id} />
       }
-      {/* <CreateComment id={currentUser.id} Name={currentUser?.Name} /> */}
     </article>
   )
 }

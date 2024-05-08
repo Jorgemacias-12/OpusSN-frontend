@@ -22,6 +22,11 @@ export interface AuthResponse {
   message?: string;
 }
 
+export interface CommentCreationResponse {
+  message?: string;
+  comment: Comment;
+}
+
 export interface Category {
   id: number;
   Name: string;
@@ -95,5 +100,6 @@ export interface Comment {
   User: SafeUser;
 }
 
+export interface CommentData extends Pick<Comment, "Content"> { };
 
 export type TabType = 'posts' | 'categories';
