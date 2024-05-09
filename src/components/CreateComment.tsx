@@ -7,9 +7,10 @@ import styles from '@/styles/form.module.css';
 interface CreateCommentProps {
   User: SafeUser;
   PostId: number;
+  triggerCommentsFetch: () => Promise<void>
 }
 
-export const CreateComment = ({ User, PostId }: CreateCommentProps) => {
+export const CreateComment = ({ User, PostId, triggerCommentsFetch }: CreateCommentProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [response, setResponse] = useState<CommentCreationResponse | null>(null);
@@ -107,6 +108,8 @@ export const CreateComment = ({ User, PostId }: CreateCommentProps) => {
     finally {
       setLoading(false);
     }
+
+    await triggerCommentsFetch();
   }
 
   const buttonLoader = <span className="animate-spin w-6 h-6 border-2 rounded-full border-l-black"></span>

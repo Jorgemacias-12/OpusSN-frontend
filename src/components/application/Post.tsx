@@ -1,7 +1,7 @@
 import type { BasePost, Comment } from "@/types"
 import { getAPIURL, getTimeDifferenceString, getUserAvatarURL } from "@/utils"
 import { Category } from "./Category";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useStore } from "@nanostores/react";
 import { loggedUser } from "@/stores/UserStore";
 import type { Comment as CommentType } from '@/types';
@@ -33,27 +33,27 @@ export const Post = ({ id, Title, Content, CreationDate, Categories, User, Updat
 
   }
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      const apiURL = `${getAPIURL()}/comments/${id}`;
+  const fetchComments = useCallback(async () => {
+    const apiURL = `${getAPIURL()}/comments/${id}`;
 
-      try {
+    try {
 
-        const response = await fetch(apiURL);
+      const response = await fetch(apiURL);
 
-        const data = await response.json();
+      const data = await response.json();
 
-        const { comments } = data;
+      const { comments } = data;
 
-        setComments(comments);
-      }
-      catch (err) {
-        throw err;
-      }
+      setComments(comments);
     }
-
-    fetchComments();
+    catch (err) {
+      throw err;
+    }
   }, []);
+
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]);
 
   const isUserOwner = currentUser && currentUser.id === User.id;
 
@@ -127,7 +127,7 @@ export const Post = ({ id, Title, Content, CreationDate, Categories, User, Updat
       }
 
       {
-        validUser && <CreateComment User={currentUser} PostId={id} />
+        validUser && <CreateComment triggerCommentsFetch={fetchComments} User={currentUser} PostId={id} />
       }
     </article>
   )
