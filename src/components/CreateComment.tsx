@@ -1,5 +1,5 @@
-import type { CommentCreationResponse, CommentData, SafeUser } from "@/types"
-import { getAPIURL, getUserAvatarURL } from "@/utils"
+import type { CommentCreationResponse, CommentData, CommentError, SafeUser } from "@/types"
+import { convertToCommentData, getAPIURL, getUserAvatarURL } from "@/utils"
 import { useState, type ChangeEvent, type FormEvent } from "react";
 
 import styles from '@/styles/form.module.css';
@@ -13,6 +13,7 @@ export const CreateComment = ({ User, PostId }: CreateCommentProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [response, setResponse] = useState<CommentCreationResponse | null>(null);
+  const [errors, setErrors] = useState<CommentError | null>(null);
 
   const validationChain = [
     {
@@ -57,11 +58,11 @@ export const CreateComment = ({ User, PostId }: CreateCommentProps) => {
 
     const formData = new FormData(formEl);
 
-    const newComment = "";
+    const newComment = convertToCommentData(formData);
 
     if (!newComment) { return; }
 
-    await createComment();
+    await createComment(newComment);
   }
 
   const createComment = async (commentData: CommentData) => {
@@ -70,16 +71,35 @@ export const CreateComment = ({ User, PostId }: CreateCommentProps) => {
     setResponse(null);
 
     const apiURL = `${getAPIURL()}/comments`;
-    
+
     const fetchOptions = {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify()
+      body: JSON.stringify(commentData)
     }
 
+    setLoading(true);
+
     try {
+      const response = await fetch(apiURL, fetchOptions);
+
+      if (!response.ok) {
+        const errors = await response.json();
+
+        setError(true);
+        setErrors(errors);
+        setLoading(false);
+
+        return;
+      }
+
+      setLoading(false);
+
+      const data = await response.json();
+
+      setResponse(data);
     }
     catch (error) {
       throw error;
@@ -93,14 +113,18 @@ export const CreateComment = ({ User, PostId }: CreateCommentProps) => {
 
   return (
     <form onSubmit={onSubmit} className="bg-brand-black-700 p-2 rounded-md flex items-center gap-2 flex-wrap justify-end">
-      <div className="flex gap-2">
+      <div className="flex gap-2 w-full">
         <img src={getUserAvatarURL(User.Name, User.LastName)} alt={`${User.Name} ${User.LastName} avatar`} width={32} height={32} className="rounded-full" />
-        <section className="flex flex-col gap-2 justify-center">
-          <input required onInput={inputValidation} name="Content" id="Content" type="text" className="bg-transparent border rounded-md h-8 px-2 w-full" />
-        </section>
+        <input required onInput={inputValidation} name="Content" id="Content" type="text" className="bg-transparent border rounded-md h-8 px-2 w-full" />
+        <input className="hidden" readOnly value={PostId} type="text" name="postId" />
+        <input className="hidden" readOnly value={User.id} type="text" name="userId" />
       </div>
-      <p className={`text-xs ${styles.formFieldInputError}`}></p>
-      <button className="bg-indigo-600 px-2 h-8 rounded-md active:bg-indigo-500" type="button">
+      <p className={`text-xs text-left ${styles.formFieldInputError}`}>
+        {
+          errors && errors.error && errors.error
+        }
+      </p>
+      <button type="submit" className="flex items-center gap-2 w-fit bg-indigo-600 px-2 h-8 rounded-md active:bg-indigo-500">
         {
           loading && !error && buttonLoader
         }
@@ -108,7 +132,8 @@ export const CreateComment = ({ User, PostId }: CreateCommentProps) => {
           error && !loading && <span className="fas fa-times"></span>
         }
         {
-          !error && !loading && response?.message === null && <span className="fa fa-check"></span>
+          !error && !loading && response && response.message !== null && <span className="fa fa-check"></span>
+
         }
 
         {

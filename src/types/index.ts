@@ -100,6 +100,10 @@ export interface Comment {
   User: SafeUser;
 }
 
-export interface CommentData extends Pick<Comment, "Content"> { };
+export interface CommentData extends Pick<Comment, "Content" | "postId" | "userId"> { };
+
+export interface CommentError {
+  error: string;
+}
 
 export type TabType = 'posts' | 'categories';

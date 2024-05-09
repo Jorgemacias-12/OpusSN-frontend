@@ -1,4 +1,4 @@
-import type { LoginData, NewPost, NewUser } from "@/types";
+import type { CommentData, LoginData, NewPost, NewUser } from "@/types";
 
 export const getUserAvatarURL = (name: string, lastname: string): string => {
   return `https://ui-avatars.com/api/?name=${name}+${lastname}&background=random`
@@ -53,6 +53,26 @@ export const convertToLoginData = (formData: FormData): LoginData | null => {
   return {
     Email: data.Email || '',
     Password: data.Password || ''
+  }
+}
+
+export const convertToCommentData = (formData: FormData): CommentData | null => {
+  const data: { [key: string]: string } = {}
+
+  formData.forEach((value, key) => {
+    if (value instanceof File) {
+      return;
+    }
+
+    data[key] = String(value);
+
+    console.log(`k: ${key} ? v: ${value}`)
+  });
+
+  return {
+    Content: data.Content || '',
+    postId: parseInt(data.postId),
+    userId: parseInt(data.userId),
   }
 }
 
@@ -124,15 +144,15 @@ export const getTimeDifferenceString = (date: Date) => {
   const days = Math.floor(hours / HOURS_PER_DAY);
 
   let result = "";
-  
+
   if (seconds > VALUE_TO_CHECK && result !== '') {
     result = `${seconds} segundo${seconds > THRESHOLD_VALUE ? 's' : ''} `
   }
-  
+
   if (minutes > VALUE_TO_CHECK && result !== '') {
     result = `${minutes} minuto${minutes > THRESHOLD_VALUE ? 's' : ''} `
   }
-  
+
   if (hours > VALUE_TO_CHECK && result !== '') {
     result = `${hours} hora${hours > THRESHOLD_VALUE ? 's' : ''} `
   }
