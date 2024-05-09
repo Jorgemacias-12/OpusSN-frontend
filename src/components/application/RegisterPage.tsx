@@ -39,8 +39,7 @@ export const RegisterPage = () => {
 
       setIsLoading(false);
 
-      const { message } = data;
-      setResponse(message);
+      setResponse(data);
     }
     catch (error) {
       setIsLoading(false);
