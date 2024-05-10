@@ -25,14 +25,6 @@ export const Post = ({ id, Title, Content, CreationDate, Categories, User, Updat
     setToggleComments(!toggleComments);
   }
 
-  const handlePostEdit = () => {
-
-  }
-
-  const handlePostDelete = () => {
-
-  }
-
   const fetchComments = useCallback(async () => {
     const apiURL = `${getAPIURL()}/comments/${id}`;
 
@@ -92,15 +84,6 @@ export const Post = ({ id, Title, Content, CreationDate, Categories, User, Updat
         </div>
 
       </section>
-
-      {
-        isUserOwner && (
-          <section className="flex gap-2 items-center justify-end">
-            <button onClick={handlePostEdit} className="h-8 px-2 bg-blue-500 rounded-md">Editar</button>
-            <button onClick={handlePostDelete} className="h-8 px-2 bg-red-500 rounded-md">Eliminar</button>
-          </section>
-        )
-      }
 
       <section className="flex gap-2">
         <h4>Comentarios</h4>
