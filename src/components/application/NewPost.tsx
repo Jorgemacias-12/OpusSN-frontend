@@ -228,7 +228,7 @@ export const CreatePost = () => {
       </section>
       <section className="hidden">
         {
-          currentUser && currentUser.id && <input type="text" name="User" value={currentUser.id} />
+          currentUser && currentUser.id && <input type="text" name="User" value={currentUser.id} onChange={inputValidation} />
         }
       </section>
       <section className="flex flex-col gap-2">
