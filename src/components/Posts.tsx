@@ -1,6 +1,6 @@
 import type { PostsReponse } from '@/types'
 import { getAPIURL } from '@/utils'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Post } from './application/Post';
 
 export const Posts = () => {

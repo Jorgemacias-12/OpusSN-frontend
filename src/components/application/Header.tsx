@@ -1,7 +1,7 @@
 import { loggedUser } from "@/stores/UserStore"
 import { getUserAvatarURL } from "@/utils";
 import { useStore } from "@nanostores/react"
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu } from "../Menu";
 
 export const Header = () => {

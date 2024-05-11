@@ -1,6 +1,6 @@
 import type { CategoryAPIResponse } from '@/types';
 import { getAPIURL } from '@/utils';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Category } from './application/Category';
 
 export const Categories = () => {

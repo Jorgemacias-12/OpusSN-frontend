@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import styles from '@/styles/header.module.css';
 
@@ -11,7 +11,7 @@ export const Header = () => {
   }
 
   const dropdownClassNameState = menuToggle ? "opacity-100 translate-y-0 pointer-events-auto z-10" : "opacity-0 translate-y-[-10px] z-[-1]  pointer-events-none";
-  const iconStateEl = menuToggle ? <i className="fas fa-times"/> : <i className="fas fa-bars" />
+  const iconStateEl = menuToggle ? <i className="fas fa-times" /> : <i className="fas fa-bars" />
 
   return (
     <header className="bg-brand-blue-900 h-20 text-white flex flex-col justify-center items-center poiner">

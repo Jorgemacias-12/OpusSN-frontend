@@ -1,7 +1,7 @@
 import { loggedUser } from '@/stores/UserStore'
 import type { SafeUser } from '@/types';
 import { getUserAvatarURL } from '@/utils';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const Menu = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);

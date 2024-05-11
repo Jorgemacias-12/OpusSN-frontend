@@ -1,4 +1,4 @@
-import type { BasePost, Comment } from "@/types"
+import type { BasePost } from "@/types"
 import { getAPIURL, getTimeDifferenceString, getUserAvatarURL } from "@/utils"
 import { Category } from "./Category";
 import { useCallback, useEffect, useState } from "react";

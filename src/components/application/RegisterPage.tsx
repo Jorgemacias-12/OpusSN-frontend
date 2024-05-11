@@ -2,7 +2,7 @@ import { useState, type ChangeEvent, type FormEvent } from 'react'
 
 import styles from '@/styles/form.module.css'
 import type { NewUser } from '@/types';
-import { convertToNewUser, getAPIURL, isValidEmail, isValidUsername, userExists } from '@/utils';
+import { convertToNewUser, getAPIURL, isValidEmail, isValidUsername } from '@/utils';
 
 export const RegisterPage = () => {
 

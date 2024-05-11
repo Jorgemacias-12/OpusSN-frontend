@@ -1,5 +1,4 @@
 import { getUserAvatarURL } from '@/utils';
-import React from 'react'
 
 interface AvatarProps {
   name: string;

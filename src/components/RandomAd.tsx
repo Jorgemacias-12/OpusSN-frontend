@@ -1,7 +1,7 @@
 import { $adCampaigns } from '@/stores/AdsStore'
 import type { AdCampaign } from '@/types';
 import { useStore } from '@nanostores/react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import styles from '@/styles/Ad.module.css';
 import { getAspectRatioClass } from '@/utils';

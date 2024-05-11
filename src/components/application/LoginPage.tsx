@@ -2,7 +2,7 @@ import { loggedUser } from '@/stores/UserStore';
 import styles from '@/styles/form.module.css'
 import type { AuthResponse, LoginData } from '@/types';
 import { convertToLoginData, getAPIURL, isValidEmail } from '@/utils';
-import react, { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 
 
 export const LoginPage = () => {
