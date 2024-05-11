@@ -16,6 +16,16 @@ export const isValidUsername = (value: string) => {
   return regex.test(value);
 }
 
+export const UserNameIsAvailable = async (username: string): Promise<boolean> => {
+  const apiURL = `${getAPIURL()}/users?UserName=${username}&CheckIfExists=true`;
+
+  const response = await fetch(apiURL);
+
+  const data = await response.json();
+
+  return data.isAvailable;
+}
+
 export const convertToNewUser = (formData: FormData): NewUser | null => {
   const data: { [key: string]: string } = {}
 
