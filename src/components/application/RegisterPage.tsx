@@ -181,7 +181,7 @@ export const RegisterPage = () => {
           catch (err) {
             throw err;
           }
-        });
+        }, 500);
 
         if (!value && value !== null) {
           errorsCount++;
