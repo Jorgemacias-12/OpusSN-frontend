@@ -164,25 +164,6 @@ export const RegisterPage = () => {
           if (errorsCount > 0) errorsCount--;
         }
 
-        // const isAvailable = await userExists(inputValue);
-
-        // if (isAvailable) {
-        //   console.log("Disponible")
-        //   return;
-        // }
-        // else {
-        //   console.log("Coito")
-        //   return;
-        // } 
-
-        // fetch to the user endpoint and check if users exists
-        // if (await !userExists(inputValue)) {
-        //   console.log("lamento boliviano")
-        // } 
-        // else {
-        //   console.log("Ola")
-        // }
-
         break;
       case 'email':
         if (!isValidEmail(inputValue)) {
