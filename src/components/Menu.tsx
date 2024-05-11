@@ -29,7 +29,7 @@ export const Menu = () => {
 
       <section className="hidden md:flex items-center justify-center gap-2">
         {
-          $user && <h3>{$user.Name} {$user.LastName}</h3>
+          $user && <h3 className="text-white">{$user.Name} {$user.LastName}</h3>
         }
         {
           $user && <img className="rounded-full" src={getUserAvatarURL($user.Name, $user.LastName)} width={32} height={32} />

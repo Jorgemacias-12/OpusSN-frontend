@@ -22,6 +22,11 @@ export interface AuthResponse {
   message?: string;
 }
 
+export interface CommentCreationResponse {
+  message?: string;
+  comment: Comment;
+}
+
 export interface Category {
   id: number;
   Name: string;
@@ -75,6 +80,7 @@ export interface BasePost {
   UpdateDate?: Date | null;
   Categories: Category[];
   userId: number;
+  User: User;
 }
 
 export interface PostsReponse {
@@ -84,3 +90,20 @@ export interface PostsReponse {
     message: string;
   }
 }
+
+export interface Comment {
+  id: number;
+  Content: string;
+  CreatedAt: Date;
+  postId: number;
+  userId: number;
+  User: SafeUser;
+}
+
+export interface CommentData extends Pick<Comment, "Content" | "postId" | "userId"> { };
+
+export interface CommentError {
+  error: string;
+}
+
+export type TabType = 'posts' | 'categories';

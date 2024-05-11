@@ -1,4 +1,4 @@
-import type { LoginData, NewPost, NewUser } from "@/types";
+import type { CommentData, LoginData, NewPost, NewUser } from "@/types";
 
 export const getUserAvatarURL = (name: string, lastname: string): string => {
   return `https://ui-avatars.com/api/?name=${name}+${lastname}&background=random`
@@ -56,6 +56,26 @@ export const convertToLoginData = (formData: FormData): LoginData | null => {
   }
 }
 
+export const convertToCommentData = (formData: FormData): CommentData | null => {
+  const data: { [key: string]: string } = {}
+
+  formData.forEach((value, key) => {
+    if (value instanceof File) {
+      return;
+    }
+
+    data[key] = String(value);
+
+    console.log(`k: ${key} ? v: ${value}`)
+  });
+
+  return {
+    Content: data.Content || '',
+    postId: parseInt(data.postId),
+    userId: parseInt(data.userId),
+  }
+}
+
 export const convertToPostData = (formData: FormData): NewPost | null => {
   const data: { [key: string]: string } = {}
 
@@ -103,5 +123,45 @@ export const getAspectRatioClass = (width: number, height: number): string => {
 }
 
 export const getAPIURL = (): string => {
-  return  "https://167.172.192.216:4000"
+  return import.meta.env.PUBLIC_API_URL ?? 'localhost:4000/';
+
+
+export const getTimeDifferenceString = (date: Date) => {
+  const MILLISECONDS_PER_SECOND = 1000;
+  const SECONDS_PER_MINUTE = 60;
+  const MINUTES_PER_HOUR = 60;
+  const HOURS_PER_DAY = 24;
+  const VALUE_TO_CHECK = 0;
+  const THRESHOLD_VALUE = 1;
+
+  const now = new Date();
+
+  const differenceInMillis = now.getTime() - date.getTime();
+
+  const seconds = Math.floor(differenceInMillis / MILLISECONDS_PER_SECOND);
+  const minutes = Math.floor(seconds / SECONDS_PER_MINUTE);
+  const hours = Math.floor(minutes / MINUTES_PER_HOUR);
+  const days = Math.floor(hours / HOURS_PER_DAY);
+
+  let result = "";
+
+  if (seconds == 0) {
+    return "Ahora";
+  }
+
+  if (seconds < SECONDS_PER_MINUTE) {
+    return result = `Hace ${seconds} segundo${seconds > THRESHOLD_VALUE ? 's' : ''}`
+  }
+
+  if (minutes < MINUTES_PER_HOUR) {
+    return result = `Hace ${minutes} minuto${minutes > THRESHOLD_VALUE ? 's' : ''}`
+  }
+
+  if (hours < HOURS_PER_DAY) {
+    return result = `Hace ${hours} hora${hours > THRESHOLD_VALUE ? 's' : ''}`
+  }
+
+  if (hours > HOURS_PER_DAY && days !== 0) {
+    return result = `Hace ${days} día${days > THRESHOLD_VALUE ? 's' : ''}`;
+  }
 }

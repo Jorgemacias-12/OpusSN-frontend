@@ -1,137 +1,149 @@
-import { loggedUser } from '@/stores/UserStore'
-import { type PostCreationReponse, type CategoryAPIResponse, type NewPost, type SafeUser } from '@/types';
-import { convertToPostData, getAPIURL, getUserAvatarURL } from '@/utils';
-import { persistentAtom } from '@nanostores/persistent';
+import { loggedUser } from '@/stores/UserStore';
+import type { Category, NewPost } from '@/types';
+import { convertToPostData, getAPIURL } from '@/utils';
 import { useStore } from '@nanostores/react';
-import { useEffect, useState, type ChangeEvent, type MouseEvent, type FormEvent } from 'react';
-
+import { useEffect, useState, type ChangeEvent, type FormEvent, type MouseEvent } from 'react'
 
 export const CreatePost = () => {
-  const user = useStore(loggedUser);
-  const userAvatar = user ? getUserAvatarURL(user.Name, user.LastName) : undefined;
-
-  const [categoryList, setCategoryList] = useState(new Set());
-  const [categoriesResponse, setCategories] = useState<CategoryAPIResponse | null>(null);
-
+  const [categories, setCategories] = useState<Category[] | null>(null);
+  const [categoryList, setCategoryList] = useState(new Set<number>());
   const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [response, setResponse] = useState<PostCreationReponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState();
+
+  const currentUser = useStore(loggedUser);
 
   let errorsCount = 0;
 
-  useEffect(() => {
-    const fetchAPI = async () => {
-      const apiUrl = getAPIURL();
-  
-      try {
-        const response = await fetch(`${apiUrl}/categories`);
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        setCategories(data);
-      }
-      catch (err: any) {
-        throw err;
-      }
-    }
-
-    fetchAPI();
-  }, [])
-
-  const addToCategory = (event: MouseEvent<HTMLButtonElement>) => {
-    const el = event.target as HTMLButtonElement;
-    const categoryId = el.getAttribute('data-category-id');
-
-    if (!el) return;
-    if (!categoryId) return;
-
-    el.classList.add('bg-[#f3722c]');
-    
-    const updatedSelectedCategories = new Set(categoryList);
-    
-    if (updatedSelectedCategories.has(categoryId)) {
-      el.classList.remove('bg-[#f3722c]');
-      updatedSelectedCategories.delete(categoryId);
-    } else {
-      updatedSelectedCategories.add(categoryId);
-    }
-
-    setCategoryList(updatedSelectedCategories);
-  }
-
-  const createPost = async (post: NewPost) => {
-    
-    setIsLoading(true);
-    
-    if (errorsCount != 0){
-      setIsLoading(false);
-      setError(true);
-      return;
-    }
-    
-    try {
-      const apiURL = `${getAPIURL()}/posts`
-     
-      const fetchOptions = {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(post)
-      }
-
-      const response = await fetch(apiURL, fetchOptions)
-
-      const data = await response.json();
-
-      setIsLoading(false);
-
-      setResponse(data);
-
-      alert("Funciona!")
-    }
-    catch (err) {
-      setIsLoading(false);
-      setError(true);
-      throw err;
-    }
-
-    // console.table(post);
-  }
-
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
-
-    if (!user) return;
 
     const formEl = event.target as HTMLFormElement;
 
     const formData = new FormData(formEl);
 
-    formData.set('User', `${user.id}`);
     formData.append('Categories', JSON.stringify(Array.from(categoryList)));
 
-    const newPost = convertToPostData(formData);
+    const catErrEl = document.getElementById('categoriesE');
 
-    if (!newPost) return;
+    if (!catErrEl) return;
 
-    await createPost(newPost);
+    if (categoryList.size === 0) {
+
+      catErrEl.textContent = "Antes de crear un post, debes asignarle una categoría.";
+
+      return;
+    }
+
+    catErrEl.textContent = "";
+
+    const data = convertToPostData(formData);
+
+    if (!data) throw new Error("Failed to create post");
+
+    await createPost(data);
+  }
+
+  const createPost = async (postData: NewPost) => {
+    setLoading(true);
+
+    if (errorsCount !== 0) {
+      setLoading(false);
+      setError(true);
+      return;
+    }
+
+    try {
+      const apiURL = `${getAPIURL()}/posts`;
+      const fetchOptions = {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+      }
+
+      const response = await fetch(apiURL, fetchOptions);
+
+      const data = await response.json();
+
+      setLoading(false);
+
+      setResponse(data);
+    }
+    catch (err) {
+      setLoading(false);
+      setError(true);
+      throw err;
+    }
+  }
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const apiURL = `${getAPIURL()}/categories`;
+
+      try {
+        const response = await fetch(apiURL);
+
+        if (!response.ok) {
+          throw new Error(`api request failed ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        const { categories } = data;
+
+        setCategories(categories);
+      }
+      catch (error) {
+        throw error;
+      }
+    }
+
+    fetchCategories();
+  }, []);
+
+  const addToCategory = (event: MouseEvent<HTMLButtonElement>) => {
+    const el = event.target as HTMLButtonElement;
+    const categoryId = parseInt(el.getAttribute('data-category-id') as string);
+
+    if (!el) return;
+    if (!categoryId) return;
+
+    el.classList.add('bg-[#ff7900]')
+
+    const categories = new Set(categoryList);
+
+    if (categories.has(categoryId)) {
+      el.classList.remove('bg-[#ff7900]');
+      categories.delete(categoryId);
+    }
+    else {
+      categories.add(categoryId);
+    }
+
+    setCategoryList(categories);
+
+    const errorEl = document.getElementById('categoriesE');
+
+    if (!errorEl) return;
+
+    if (categoryList.size === 0) errorEl.textContent = "Antes de crear un post, debes asignarle una categoría.";
+
+    if (errorEl.textContent !== "") errorEl.textContent = "";
   }
 
   const validationChain = [
     {
       id: "Title",
       required: true,
-      min: 5,
+      min: 3,
       max: 40
     },
     {
       id: "Content",
-      required: true
+      required: true,
+      min: 3
     }
   ]
 
@@ -146,17 +158,14 @@ export const CreatePost = () => {
     const errorEl = document.querySelector(`#${inputId} ~ .error`) as HTMLParagraphElement;
 
     if (!field) {
-      console.log("aca 1")
       return;
     }
 
     if (!errorEl) {
-      console.log("aca 2")
       return;
     }
 
     if (!label) {
-      console.log("aca 3")
       return;
     }
 
@@ -213,66 +222,58 @@ export const CreatePost = () => {
   const buttonLoader = <span className="animate-spin w-6 h-6 border-2 rounded-full border-l-black"></span>
 
   return (
-    <section className='bg-brand-slate w-full p-4 rounded-lg mt-2 flex flex-col gap-2 border border-slate-600'>
-      <section className="flex gap-10 justify-between">
-        <h3>¿Que quieres postear hoy?</h3>
-
+    <form className="bg-brand-black-800 mx-auto w-full max-w-screen-xs p-2 rounded-md flex flex-col gap-2" onSubmit={onSubmit}>
+      <section>
+        <h2 className="text-center text-xl">¿En que piensas? ¡Postea!</h2>
+      </section>
+      <section className="hidden">
         {
-          user && userAvatar && <img className="rounded-full" width={32} height={32} src={userAvatar} alt={`${user.Name} ${user.LastName} avatar photo`} />
+          currentUser && currentUser.id && <input type="text" name="User" value={currentUser.id} onChange={inputValidation} />
         }
       </section>
+      <section className="flex flex-col gap-2">
+        <label htmlFor="Title" className="label">Titulo</label>
+        <input onChange={inputValidation} required name="Title" id="Title" type="text" className="border rounded-md h-8 bg-transparent px-2" />
+        <p className="error text-red-500"></p>
+      </section>
 
-      <form className="flex flex-col gap-4" method="POST" onSubmit={onSubmit}>
-        <section className="flex flex-col gap-2">
-          <label className="label" htmlFor="Title">Titulo</label>
-          <input onChange={inputValidation} required className="bg-transparent px-2 border border-indigo-500 h-8 rounded-md" type="text" name='Title' id="Title" />
-          <p className="text-red-500 error"></p>
-        </section>
-        <section className="flex flex-col gap-2">
-          <label className="label" htmlFor="Content">Contenido</label>
-          <textarea onChange={inputValidation} required className="bg-transparent border border-indigo-500 rounded-md p-2" name="Content" id="Content"></textarea>
-          <p className="text-red-500 error"></p>
-        </section>
+      <section className="flex flex-col gap-2">
+        <label htmlFor="Content" className="label">Contenido</label>
+        <textarea onChange={inputValidation} className="rounded-md bg-transparent border p-2" name="Content" id="Content"></textarea>
+        <p className="error text-red-500"></p>
+      </section>
 
-        <section className="flex flex-col overflow-scroll-x overflow-y-hidden gap-2 ">
-          <h3>Categorías</h3>
-          <div className="flex gap-2">
-            {
-              categoriesResponse && categoriesResponse.categories.map((el, index) => {
-                return (
-                  <button type="button" onClick={addToCategory} key={index} data-category-id={el.id} className={"flex items-center gap-2 bg-indigo-500 h-8 overflow-hidden text-xs text-ellipsis rounded-md w-fit"}>
-                    {el.Name}
-                  </button>
-                );
-              })
-            }
-          </div>
-        </section>
+      <section className="flex flex-col gap-2">
+        <label htmlFor="">Categorias</label>
+        <div className="flex gap-2 overflow-hidden overflow-x-scroll h-fit p-2">
+          {
+            categories && categories.map((cat, index) => {
+              return (
+                <button data-category-id={cat.id} type="button" onClick={addToCategory} key={index} className="text-xs bg-brand-blue-300 h-8 px-2 rounded-md">{cat.Name}</button>
+              )
+            })
+          }
+        </div>
+        <p id="categoriesE" className="error text-red-500"></p>
+      </section>
 
-        <section className="flex justify-between items-center gap-4">
-          
-          <p id="result" className=""></p>
+      <section className="flex flex-end w-full items-center justify-end">
+        <button className="flex rounded-md h-8 bg-indigo-500 w-fit items-center px-4">
+          {
+            loading && !error && buttonLoader
+          }
+          {
+            error && !loading && <span className="fas fa-times"></span>
+          }
+          {
+            !error && !loading && response && <span className="fa fa-check"></span>
+          }
 
-          <button className="bg-indigo-600 rounded-md p-2 px-4" disabled={isLoading}>
-            {
-              isLoading && !error && buttonLoader
-            }
-            {
-              error && !isLoading && <span className='fas fa-times'></span>
-            }
-
-            {/* {
-              !error && !isLoading && response?.message === null && <span className="fa fa-check"></span>
-            } */}
-
-            {
-              isLoading && !error ? 'Publicando post...' : 'Publicar'
-            }            
-          </button>
-        </section>
-
-        {/* <p className="text-xs"></p> */}
-      </form>
-    </section>
-  );
+          {
+            loading && !error ? 'Posteando...' : 'Postear'
+          }
+        </button>
+      </section>
+    </form>
+  )
 }
