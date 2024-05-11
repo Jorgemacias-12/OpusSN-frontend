@@ -145,21 +145,23 @@ export const getTimeDifferenceString = (date: Date) => {
 
   let result = "";
 
-  if (seconds > VALUE_TO_CHECK && result !== '') {
-    result = `${seconds} segundo${seconds > THRESHOLD_VALUE ? 's' : ''} `
+  if (seconds == 0) {
+    return "Ahora";
   }
 
-  if (minutes > VALUE_TO_CHECK && result !== '') {
-    result = `${minutes} minuto${minutes > THRESHOLD_VALUE ? 's' : ''} `
+  if (seconds < SECONDS_PER_MINUTE) {
+    return result = `Hace ${seconds} segundo${seconds > THRESHOLD_VALUE ? 's' : ''}`
   }
 
-  if (hours > VALUE_TO_CHECK && result !== '') {
-    result = `${hours} hora${hours > THRESHOLD_VALUE ? 's' : ''} `
+  if (minutes < MINUTES_PER_HOUR) {
+    return result = `Hace ${minutes} minuto${minutes > THRESHOLD_VALUE ? 's' : ''}`
   }
 
-  if (days > VALUE_TO_CHECK) {
-    result = `${days} día${days > THRESHOLD_VALUE ? 's' : ''} `
+  if (hours < HOURS_PER_DAY) {
+    return result = `Hace ${hours} hora${hours > THRESHOLD_VALUE ? 's' : ''}`
   }
 
-  return `Hace ${result.trim()}`;
+  if (hours > HOURS_PER_DAY && days !== 0) {
+    return result = `Hace ${days} día${days > THRESHOLD_VALUE ? 's' : ''}`;
+  }
 }
