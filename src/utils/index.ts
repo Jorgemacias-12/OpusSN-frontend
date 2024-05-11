@@ -124,7 +124,7 @@ export const getAspectRatioClass = (width: number, height: number): string => {
 
 export const getAPIURL = (): string => {
   return import.meta.env.PUBLIC_API_URL ?? 'localhost:4000/';
-
+}
 
 export const getTimeDifferenceString = (date: Date) => {
   const MILLISECONDS_PER_SECOND = 1000;
