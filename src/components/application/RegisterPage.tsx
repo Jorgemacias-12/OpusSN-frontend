@@ -2,7 +2,7 @@ import { useState, type ChangeEvent, type FormEvent } from 'react'
 
 import styles from '@/styles/form.module.css'
 import type { NewUser, UserCreationResponse } from '@/types';
-import { convertToNewUser, getAPIURL, isValidEmail, isValidUsername } from '@/utils';
+import { UserNameIsAvailable, convertToNewUser, getAPIURL, isValidEmail, isValidUsername } from '@/utils';
 
 export const RegisterPage = () => {
 
@@ -158,6 +158,21 @@ export const RegisterPage = () => {
           target.classList.add('border-red-500');
           errorEl.textContent = `El nombre de usuario debe contener entre 3 y 15 caracteres alfanuméricos (letras, números o guiones bajos).`;
 
+          return;
+        }
+        else {
+          if (errorsCount > 0) errorsCount--;
+        }
+
+        const value = await UserNameIsAvailable(inputValue);
+
+        if (!value) {
+          console.log("Entracaca")
+          errorsCount++;
+
+          label.classList.add('text-red-500');
+          target.classList.add('border-red-500');
+          errorEl.textContent = `!Ese nombre de usuario ya existe!`;
           return;
         }
         else {
