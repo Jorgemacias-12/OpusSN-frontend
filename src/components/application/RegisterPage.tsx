@@ -10,6 +10,8 @@ export const RegisterPage = () => {
   const [error, setError] = useState(false);
   const [response, setResponse] = useState<UserCreationResponse | null>(null);
 
+  let usernameCheckTimeout: Timer | null = null;
+
   let errorsCount: number = 0;
 
   const apiURL = `${getAPIURL()}/users`;
@@ -164,10 +166,24 @@ export const RegisterPage = () => {
           if (errorsCount > 0) errorsCount--;
         }
 
-        const value = await UserNameIsAvailable(inputValue);
+        const controller = new AbortController();
 
-        if (!value) {
-          console.log("Entracaca")
+        if (usernameCheckTimeout) {
+          clearTimeout(usernameCheckTimeout);
+          controller.abort();
+        }
+
+        let value: boolean | null = null;
+        usernameCheckTimeout = setTimeout(async () => {
+          try {
+            value = await UserNameIsAvailable(inputValue, controller);
+          }
+          catch (err) {
+            throw err;
+          }
+        });
+
+        if (!value && value !== null) {
           errorsCount++;
 
           label.classList.add('text-red-500');
