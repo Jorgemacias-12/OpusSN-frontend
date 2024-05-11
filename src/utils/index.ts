@@ -131,7 +131,6 @@ export const getTimeDifferenceString = (date: Date) => {
   const SECONDS_PER_MINUTE = 60;
   const MINUTES_PER_HOUR = 60;
   const HOURS_PER_DAY = 24;
-  const VALUE_TO_CHECK = 0;
   const THRESHOLD_VALUE = 1;
 
   const now = new Date();
