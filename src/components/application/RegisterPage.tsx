@@ -1,14 +1,14 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 
 import styles from '@/styles/form.module.css'
-import type { NewUser } from '@/types';
+import type { NewUser, UserCreationResponse } from '@/types';
 import { convertToNewUser, getAPIURL, isValidEmail, isValidUsername } from '@/utils';
 
 export const RegisterPage = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [response, setResponse] = useState("");
+  const [response, setResponse] = useState<UserCreationResponse | null>(null);
 
   let errorsCount: number = 0;
 
@@ -330,7 +330,7 @@ export const RegisterPage = () => {
         }
 
         {
-          response && <p className="text-green-600 text-sm font-bold text-center capitalize">{response}</p>
+          response && <p className="text-green-600 text-sm font-bold text-center capitalize">{response.message}</p>
         }
 
         {

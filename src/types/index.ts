@@ -72,6 +72,11 @@ export interface PostCreationReponse {
   }
 }
 
+export interface UserCreationResponse {
+  message: string;
+  newUser: SafeUser | null;
+}
+
 export interface BasePost {
   id: number;
   Title: string;
