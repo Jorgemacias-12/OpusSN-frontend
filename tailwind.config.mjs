@@ -28,6 +28,7 @@ export default {
         'brand-black-900': '#181818',
         'brand-black-800': '#212121',
         'brand-black-700': '#3d3d3d',
+        'brand-orange': '#ff7900'
       },
     },
   },

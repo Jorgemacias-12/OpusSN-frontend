@@ -110,18 +110,19 @@ export const CreatePost = () => {
     if (!el) return;
     if (!categoryId) return;
 
-    el.classList.add('bg-[#ff7900]')
-
     const categories = new Set(categoryList);
 
-    if (categories.has(categoryId)) {
-      el.classList.remove('bg-[#ff7900]');
+    const hasCategory = categories.has(categoryId);
+
+    if (hasCategory) {
+      el.classList.remove('bg-brand-orange');
       categories.delete(categoryId);
     }
     else {
+      el.classList.add('bg-brand-orange');
       categories.add(categoryId);
     }
-
+    
     setCategoryList(categories);
 
     const errorEl = document.getElementById('categoriesE');
