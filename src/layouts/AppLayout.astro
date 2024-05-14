@@ -7,7 +7,6 @@ import "@fontsource/ubuntu/300.css";
 import "@fontsource/ubuntu/400.css";
 import "@fontsource/ubuntu/500.css";
 import "@fontsource/ubuntu/700.css";
-import React from "react";
 
 interface Props {
   title: string;
@@ -40,5 +39,37 @@ const { title } = Astro.props;
 <style is:global>
   body {
     font-family: "Ubuntu", sans-serif;
+  }
+
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #b83254 #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #b83254;
+    border-radius: 10px;
+    border: 0px dotted #ffffff;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    * {
+      scrollbar-color: #b83254 #000;
+    }
+
+    *::-webkit-scrollbar-track {
+      background: #000;
+    }
   }
 </style>
