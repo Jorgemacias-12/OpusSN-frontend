@@ -16,13 +16,15 @@ export const isValidUsername = (value: string) => {
   return regex.test(value);
 }
 
-export const UserNameIsAvailable = async (username: string, controller: AbortController): Promise<boolean> => {
-  const apiURL = `${getAPIURL()}/users?UserName=${username}&CheckIfExists=true`;
-
-  const signal = controller.signal;
+export const UserNameIsAvailable = async (username: string, signal: AbortSignal): Promise<boolean> => {
+  const apiURL = `${getAPIURL()}/users?UserName=${encodeURIComponent(username)}&CheckIfExists=true`
 
   try {
     const response = await fetch(apiURL, { signal });
+
+    if (!response.ok) {
+      throw new Error(`${response.status} - ${response.statusText}`);
+    }
 
     const data = await response.json();
 
