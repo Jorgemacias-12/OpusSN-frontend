@@ -41,7 +41,7 @@ export const Categories = () => {
   }, [])
 
   return (
-    <section className="bg-brand-black-900 rounded-md md:hidden max-w-screen-xs mx-auto p-2">
+    <section className="bg-brand-black-900 rounded-md max-w-screen-xs mx-auto p-2">
       <h3 className='text-2xl text-center font-bold '>
         Categorias
       </h3>
