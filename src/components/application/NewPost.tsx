@@ -122,7 +122,7 @@ export const CreatePost = () => {
       el.classList.add('bg-brand-orange');
       categories.add(categoryId);
     }
-    
+
     setCategoryList(categories);
 
     const errorEl = document.getElementById('categoriesE');
@@ -240,7 +240,7 @@ export const CreatePost = () => {
 
       <section className="flex flex-col gap-2">
         <label htmlFor="Content" className="label">Contenido</label>
-        <textarea onChange={inputValidation} className="rounded-md bg-transparent border p-2" name="Content" id="Content"></textarea>
+        <textarea required onChange={inputValidation} className="rounded-md bg-transparent border p-2" name="Content" id="Content"></textarea>
         <p className="error text-red-500"></p>
       </section>
 
