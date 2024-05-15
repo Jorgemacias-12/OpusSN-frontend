@@ -11,6 +11,17 @@ export const Header = () => {
 
   const toggleModal = async () => {
     setShowUserProfile(prevState => !prevState);
+
+    // Disable html scroll using classNames method
+    // How this works? :C
+    if (showUserProfile) {
+      document.body.classList.remove('overflow-hidden');
+    }
+    else {
+      document.body.classList.add('overflow-hidden');
+    }
+
+    console.log(document.body.classList);
   }
 
   const logout = () => {
@@ -30,12 +41,16 @@ export const Header = () => {
 
         <h1 className="text-brand-yellow font-bold text-2xl">Opus</h1>
 
-        <img src="/favicon.svg" alt="Opus brand logo" width={32} height={32} />
+        <a href="/">
+          <img src="/favicon.svg" alt="Opus brand logo" width={32} height={32} />
+        </a>
       </section>
 
       <section className="hidden md:flex justify-between w-full">
         <div className="flex gap-2 items-center">
-          <img src="/favicon.svg" alt="Opus brand logo" className="" width={32} />
+          <a href="/">
+            <img src="/favicon.svg" alt="Opus brand logo" className="" width={32} />
+          </a>
 
           <h1 className="text-brand-yellow font-bold text-2xl">Opus</h1>
         </div>
@@ -45,7 +60,7 @@ export const Header = () => {
         </div>
       </section>
 
-      <dialog className={`absolute m-0 bg-brand-blue-900 text-white border border-slate-600 rounded-md min-h-svh md:hidden flex flex-col justify-between top-0 ${showUserProfile ? 'visible' : 'hidden'} w-full`}>
+      <dialog className={`absolute m-0 bg-brand-blue-900 text-white border border-slate-600 rounded-md min-h-svh md:hidden flex flex-col justify-between top-0 ${showUserProfile ? 'visible' : 'hidden'} w-full z-10`}>
         <section className="p-4">
           <section className="flex items-center justify-between p-2 w-full">
             <div className={`flex gap-2 items-center`}>
