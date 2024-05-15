@@ -21,8 +21,6 @@ export const Header = () => {
     else {
       document.body.classList.add('overflow-hidden');
     }
-
-    console.log(document.body.classList);
   }
 
   const logout = () => {
@@ -82,12 +80,6 @@ export const Header = () => {
               {
                 showAvatar && <h3 className="mx-auto font-bold text-xl">Bienvenido</h3>
               }
-              {/* {
-                showAvatar && <h2>{user.Name} {user.LastName}</h2>
-              }
-              {
-                showAvatar && <img className="rounded-full active:border active:border-slate-100 border border-transparent" src={getUserAvatarURL(user.Name, user.LastName)} width={32} height={32} />
-              } */}
             </div>
 
             <button onClick={toggleModal}>
