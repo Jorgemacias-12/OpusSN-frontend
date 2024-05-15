@@ -12,19 +12,43 @@ import { ViewTransitions } from "astro:transitions";
 
 interface Props {
 	title: string;
+	description: string;
 }
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="es" transition:animate="fade">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<link rel="canonical" href="https://opus.partumunitstudio.com/">
+		<meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+
+		<!-- Facebook meta tags -->
+		<meta property="og:url" content="https://opus.partumunitstudio.com/" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Opus - Inicio" />
+		<meta
+			property="og:description"
+			content="Opus: Red social innovadora combinando lo mejor de Reddit y Twitter. Únete para compartir ideas, noticias y conectarte con una comunidad diversa."
+		/>
+		<meta property="og:image" content="/og-image.png" />
+
+		<!-- Twitter meta tags -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta property="twitter:domain" content="opus.partumunitstudio.com" />
+		<meta property="twitter:url" content="https://opus.partumunitstudio.com/" />
+		<meta name="twitter:title" content="Opus - Inicio" />
+		<meta
+			name="twitter:description"
+			content="Opus: Red social innovadora combinando lo mejor de Reddit y Twitter. Únete para compartir ideas, noticias y conectarte con una comunidad diversa."
+		/>
+		<meta name="twitter:image" content="/og-image.png" />
+
 		<title>{title}</title>
 		<link
 			rel="stylesheet"
@@ -37,21 +61,20 @@ const { title } = Astro.props;
 	</head>
 	<body class="app min-h-screen">
 		<slot />
-	</body>
+	</body><style is:global>
+		body {
+			font-family: "Ubuntu", sans-serif;
+		}
+
+		.app {
+			min-height: 100vh;
+			min-height: 100dvh;
+			display: grid;
+			grid-template-rows: auto 1fr auto;
+		}
+
+		*:focus {
+			outline: none;
+		}
+	</style>
 </html>
-<style is:global>
-	body {
-		font-family: "Ubuntu", sans-serif;
-	}
-
-	.app {
-		min-height: 100vh;
-		min-height: 100dvh;
-		display: grid;
-		grid-template-rows: auto 1fr auto;
-	}
-
-	*:focus {
-		outline: none;
-	}
-</style>
