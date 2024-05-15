@@ -16,6 +16,35 @@ export const isValidUsername = (value: string) => {
   return regex.test(value);
 }
 
+export const ofuscateEmail = (email: string) => {
+  const atIndex = email.lastIndexOf("@");
+  if (atIndex === -1 || atIndex === 0 || atIndex === email.length - 1) {
+    return email;
+  }
+
+  const user = email.slice(0, atIndex);
+  const domain = email.slice(atIndex + 1);
+
+  const firstChar = user.charAt(0);
+
+  const obfuscatedUser = firstChar + "*".repeat(user.length - 1);
+
+  const domainParts = domain.split(".");
+
+  const topLevelDomain = domainParts.pop() || '';
+  const obfuscatedDomainParts = domainParts.map(part => "*".repeat(part.length));
+
+  const obfuscatedDomain = obfuscatedDomainParts.join(".") + "." + topLevelDomain;
+
+  const obfuscatedEmail = `${obfuscatedUser}@${obfuscatedDomain}`;
+
+  return obfuscatedEmail;
+}
+
+export const replaceAt = (value: string, index: number, replacement: string) => {
+  return value.substring(0, index) + replacement + value.substring(index + replacement.length);
+}
+
 export const UserNameIsAvailable = async (username: string, signal: AbortSignal): Promise<boolean> => {
   const apiURL = `${getAPIURL()}/users?UserName=${encodeURIComponent(username)}&CheckIfExists=true`
 
