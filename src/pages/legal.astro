@@ -5,7 +5,10 @@ import { Footer } from "@/components/Footer";
 import { RandomAd } from "@/components/RandomAd";
 ---
 
-<Layout title="Opus - Aviso legal">
+<Layout
+  title="Opus - Aviso legal"
+  description="Consulta los términos legales y condiciones de uso de Opus, la emocionante red social que conecta a personas apasionadas. Descubre nuestras políticas de privacidad y normativas para una experiencia segura y satisfactoria en nuestra plataforma."
+>
   <Header client:load />
   <main class="wrapper">
     <h2 class="title">Aviso legal</h2>
@@ -131,7 +134,7 @@ import { RandomAd } from "@/components/RandomAd";
 
     <section class="paragraph-container">
       <h2 class="title">Anuncios</h2>
-      <RandomAd client:load/>
+      <RandomAd client:load />
     </section>
   </main>
   <Footer />
