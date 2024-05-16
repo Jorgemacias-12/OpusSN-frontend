@@ -48,8 +48,12 @@ export const replaceAt = (value: string, index: number, replacement: string) => 
 export const UserNameIsAvailable = async (username: string, signal: AbortSignal): Promise<boolean> => {
   const apiURL = `${getAPIURL()}/users?UserName=${encodeURIComponent(username)}&CheckIfExists=true`
 
+  console.trace(apiURL);
+
   try {
     const response = await fetch(apiURL, { signal });
+
+    console.trace(response)
 
     if (!response.ok) {
       throw new Error(`${response.status} - ${response.statusText}`);
@@ -60,7 +64,8 @@ export const UserNameIsAvailable = async (username: string, signal: AbortSignal)
     return data.isAvailable;
   }
   catch (error) {
-    throw error;
+    console.error(error)
+    return false;
   }
 }
 

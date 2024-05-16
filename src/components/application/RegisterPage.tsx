@@ -11,6 +11,7 @@ export const RegisterPage = () => {
   const [response, setResponse] = useState<UserCreationResponse | null>(null);
 
   let usernameCheckTimeout: Timer | null = null;
+  const usernameAbortController: AbortController = new AbortController();
 
   let errorsCount: number = 0;
 
@@ -166,34 +167,24 @@ export const RegisterPage = () => {
           if (errorsCount > 0) errorsCount--;
         }
 
-        const controller = new AbortController();
-
         if (usernameCheckTimeout) {
           clearTimeout(usernameCheckTimeout);
-          controller.abort();
         }
 
-        let value: boolean | null = null;
         usernameCheckTimeout = setTimeout(async () => {
-          try {
-            value = await UserNameIsAvailable(inputValue, controller);
+          const isAvailable = await UserNameIsAvailable(inputValue, usernameAbortController.signal);
+
+          if (!isAvailable) {
+            label.classList.remove('text-teal-500');
+            label.classList.remove('text-teal-500');
+            target.classList.remove('border-teal-500');
+            label.classList.add('text-red-500');
+            target.classList.add('border-red-500');
+            errorEl.textContent = '!Ese nombre de usuario ya existe!';
+            return;
           }
-          catch (err) {
-            throw err;
-          }
+
         }, 500);
-
-        if (!value && value !== null) {
-          errorsCount++;
-
-          label.classList.add('text-red-500');
-          target.classList.add('border-red-500');
-          errorEl.textContent = `!Ese nombre de usuario ya existe!`;
-          return;
-        }
-        else {
-          if (errorsCount > 0) errorsCount--;
-        }
 
         break;
       case 'email':
