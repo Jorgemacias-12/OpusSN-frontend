@@ -67,9 +67,12 @@ export const CreateComment = ({ User, PostId, triggerCommentsFetch }: CreateComm
   }
 
   const createComment = async (commentData: CommentData) => {
+    if (errorsCount !== 0) return;
+    
     setError(false);
     setLoading(true);
     setResponse(null);
+
 
     const apiURL = `${getAPIURL()}/comments`;
 

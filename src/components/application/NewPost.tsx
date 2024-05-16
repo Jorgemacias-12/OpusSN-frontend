@@ -110,15 +110,16 @@ export const CreatePost = () => {
     if (!el) return;
     if (!categoryId) return;
 
-    el.classList.add('bg-[#ff7900]')
-
     const categories = new Set(categoryList);
 
-    if (categories.has(categoryId)) {
-      el.classList.remove('bg-[#ff7900]');
+    const hasCategory = categories.has(categoryId);
+
+    if (hasCategory) {
+      el.classList.remove('bg-brand-orange');
       categories.delete(categoryId);
     }
     else {
+      el.classList.add('bg-brand-orange');
       categories.add(categoryId);
     }
 
@@ -239,7 +240,7 @@ export const CreatePost = () => {
 
       <section className="flex flex-col gap-2">
         <label htmlFor="Content" className="label">Contenido</label>
-        <textarea onChange={inputValidation} className="rounded-md bg-transparent border p-2" name="Content" id="Content"></textarea>
+        <textarea required onChange={inputValidation} className="rounded-md bg-transparent border p-2" name="Content" id="Content"></textarea>
         <p className="error text-red-500"></p>
       </section>
 

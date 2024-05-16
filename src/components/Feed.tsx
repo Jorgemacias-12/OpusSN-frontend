@@ -15,21 +15,24 @@ export const Feed = () => {
   return (
     <>
       <Header />
-      <main className="flex flex-col gap-5 p-4 text-white">
+      <main className="relative flex flex-col gap-5 p-4 text-white">
         <TabSelector />
 
-        <section>
+        <section className="flex flex-col gap-10">
           {
             tab === 'posts' && currentUser && <CreatePost />
           }
-        </section>
 
-        <section>
           {
             tab === 'posts' && <Posts />
           }
         </section>
 
+        <section className="p-2 rounded-md fixed right-0 hidden lg:flex w-60 mr-5 bg-brand-black-800 flex-col 2xl:right-56">
+          <h4 className="text-center pt-5 text-2xl font-bold">Anuncios</h4>
+          <RandomAd />
+          <Categories />
+        </section>
 
         {
           tab === 'categories' && (

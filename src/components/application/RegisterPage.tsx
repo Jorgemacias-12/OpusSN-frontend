@@ -10,6 +10,9 @@ export const RegisterPage = () => {
   const [error, setError] = useState(false);
   const [response, setResponse] = useState<UserCreationResponse | null>(null);
 
+  let usernameCheckTimeout: Timer | null = null;
+  const usernameAbortController: AbortController = new AbortController();
+
   let errorsCount: number = 0;
 
   const apiURL = `${getAPIURL()}/users`;
@@ -164,20 +167,24 @@ export const RegisterPage = () => {
           if (errorsCount > 0) errorsCount--;
         }
 
-        const value = await UserNameIsAvailable(inputValue);
-
-        if (!value) {
-          console.log("Entracaca")
-          errorsCount++;
-
-          label.classList.add('text-red-500');
-          target.classList.add('border-red-500');
-          errorEl.textContent = `!Ese nombre de usuario ya existe!`;
-          return;
+        if (usernameCheckTimeout) {
+          clearTimeout(usernameCheckTimeout);
         }
-        else {
-          if (errorsCount > 0) errorsCount--;
-        }
+
+        usernameCheckTimeout = setTimeout(async () => {
+          const isAvailable = await UserNameIsAvailable(inputValue, usernameAbortController.signal);
+
+          if (!isAvailable) {
+            label.classList.remove('text-teal-500');
+            label.classList.remove('text-teal-500');
+            target.classList.remove('border-teal-500');
+            label.classList.add('text-red-500');
+            target.classList.add('border-red-500');
+            errorEl.textContent = '!Ese nombre de usuario ya existe!';
+            return;
+          }
+
+        }, 500);
 
         break;
       case 'email':

@@ -16,14 +16,57 @@ export const isValidUsername = (value: string) => {
   return regex.test(value);
 }
 
-export const UserNameIsAvailable = async (username: string): Promise<boolean> => {
-  const apiURL = `${getAPIURL()}/users?UserName=${username}&CheckIfExists=true`;
+export const ofuscateEmail = (email: string) => {
+  const atIndex = email.lastIndexOf("@");
+  if (atIndex === -1 || atIndex === 0 || atIndex === email.length - 1) {
+    return email;
+  }
 
-  const response = await fetch(apiURL);
+  const user = email.slice(0, atIndex);
+  const domain = email.slice(atIndex + 1);
 
-  const data = await response.json();
+  const firstChar = user.charAt(0);
 
-  return data.isAvailable;
+  const obfuscatedUser = firstChar + "*".repeat(user.length - 1);
+
+  const domainParts = domain.split(".");
+
+  const topLevelDomain = domainParts.pop() || '';
+  const obfuscatedDomainParts = domainParts.map(part => "*".repeat(part.length));
+
+  const obfuscatedDomain = obfuscatedDomainParts.join(".") + "." + topLevelDomain;
+
+  const obfuscatedEmail = `${obfuscatedUser}@${obfuscatedDomain}`;
+
+  return obfuscatedEmail;
+}
+
+export const replaceAt = (value: string, index: number, replacement: string) => {
+  return value.substring(0, index) + replacement + value.substring(index + replacement.length);
+}
+
+export const UserNameIsAvailable = async (username: string, signal: AbortSignal): Promise<boolean> => {
+  const apiURL = `${getAPIURL()}/users?UserName=${encodeURIComponent(username)}&CheckIfExists=true`
+
+  console.trace(apiURL);
+
+  try {
+    const response = await fetch(apiURL, { signal });
+
+    console.trace(response)
+
+    if (!response.ok) {
+      throw new Error(`${response.status} - ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    return data.isAvailable;
+  }
+  catch (error) {
+    console.error(error)
+    return false;
+  }
 }
 
 export const convertToNewUser = (formData: FormData): NewUser | null => {

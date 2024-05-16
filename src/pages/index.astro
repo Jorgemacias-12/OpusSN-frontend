@@ -2,17 +2,19 @@
 import Layout from "../layouts/Layout.astro";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import FormLayout from "@/layouts/FormLayout.astro";
 ---
 
-<Layout title="Opus - Inicio">
+<Layout
+	title="Opus - Inicio"
+	description="Opus: Red social innovadora combinando lo mejor de Reddit y Twitter. Únete para compartir ideas, noticias y conectarte con una comunidad diversa."
+>
 	<Header client:load />
 	<main class="flex flex-col p-2 z-0 gap-20">
 		<section class="flex flex-col gap-4 md:flex-row content">
 			<section class="flex flex-col gap-4">
-				<h1 class="text-3xl text-center font-bold lg:text-5xl lg:p-5">
+				<h2 class="text-3xl text-center font-bold lg:text-5xl lg:p-5">
 					¡Bienvenido a OPUS!
-				</h1>
+				</h2>
 
 				<p class="text-justify text-xl md:pl-4 md:text-center lg:text-2xl">
 					Tu Plataforma tecnológica para la libre expresión.
@@ -69,7 +71,7 @@ import FormLayout from "@/layouts/FormLayout.astro";
 			</p>
 
 			<a
-				class="inline-flex justify-center bg-blue-500 text-white p-2 rounded-md shadow-md mx-auto"
+				class="inline-flex justify-center bg-indigo-500 text-white p-2 rounded-md shadow-md mx-auto"
 				href="/register"
 			>
 				Registrarse en opus
@@ -85,13 +87,15 @@ import FormLayout from "@/layouts/FormLayout.astro";
 			</p>
 
 			<p class="">
-				Correo electrónico: <a class="text-blue-500 hover:underline" href="mailto:soporte@partumunitstudio.com"
+				Correo electrónico: <a
+					class="text-indigo-800 hover:underline"
+					href="mailto:soporte@partumunitstudio.com"
 					>soporte@partumunitstudio.com</a
 				>
 			</p>
 			<p class="">
 				Teléfono: <a
-					class="text-blue-500 hover:underline"
+					class="text-indigo-800 hover:underline"
 					href="tel:+523221234512">+1 (322) 123-4512</a
 				>
 			</p>
