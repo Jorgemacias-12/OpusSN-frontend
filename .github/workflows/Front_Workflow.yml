@@ -29,7 +29,9 @@ jobs:
         run: bun run build
 
       - name: Upload production build to the server
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        env:
+          ARGS:  --delete --dry-run --exclude=.env 
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
@@ -50,3 +52,4 @@ jobs:
             astro.config.mjs
             tailwind.config.mjs
           server-dir: "frontend/"
+        
