@@ -1,3 +1,4 @@
+import { $posts } from '@/stores/PostsStore';
 import { loggedUser } from '@/stores/UserStore';
 import type { Category, NewPost } from '@/types';
 import { convertToPostData, getAPIURL } from '@/utils';
@@ -44,6 +45,21 @@ export const CreatePost = () => {
     await createPost(data);
   }
 
+  const fetchPosts = async () => {
+    const apiURL = `${getAPIURL()}/posts`;
+
+    try {
+      const response = await fetch(apiURL);
+
+      const data = await response.json();
+
+      $posts.set(data);
+    }
+    catch (err) {
+      throw err;
+    }
+  }
+
   const createPost = async (postData: NewPost) => {
     setLoading(true);
 
@@ -76,6 +92,8 @@ export const CreatePost = () => {
       setError(true);
       throw err;
     }
+
+    await fetchPosts();
   }
 
   useEffect(() => {
