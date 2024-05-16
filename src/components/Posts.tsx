@@ -34,6 +34,9 @@ export const Posts = () => {
           return <Post key={post.id} id={post.id} Title={post.Title} Content={post.Content} CreationDate={post.CreationDate} userId={post.userId} Categories={post.Categories} User={post.User} UpdateDate={post.UpdateDate} />
         })
       }
+      {
+        posts && posts.postCount === 0 && <p className="rounded-md p-2 bg-red-500">No se han creado posts</p>
+      }
     </section>
   )
 }
